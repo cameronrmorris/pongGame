@@ -5,4 +5,4 @@
 
 # Compiled Dynamic libraries
 *.so
-
+*.exe
