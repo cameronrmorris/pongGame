@@ -35,7 +35,7 @@ SDL_Surface *load_image( std::string filename )
     return optimizedImage;
 }
 
-void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination ){
+void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* snip ){
     //Make a temporary rectangle to hold the offsets
     SDL_Rect offset;
 
@@ -44,5 +44,5 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination 
     offset.y = y;
 
     //Blit the surface
-    SDL_BlitSurface( source, NULL, destination, &offset );
+    SDL_BlitSurface( source, snip, destination, &offset );
 }

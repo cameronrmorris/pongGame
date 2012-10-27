@@ -101,7 +101,7 @@ void Game::displayMenu() {
 			setState(QUIT);
 		}
 
-		apply_surface( 0, 0, background, screen );
+		apply_surface( 0, 0, background, screen);
 
 		//Update the screen
 		if (SDL_Flip(screen) == -1) {
