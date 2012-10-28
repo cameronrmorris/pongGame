@@ -58,6 +58,7 @@ bool Game::init() {
 
 	apply_surface( 0, 0, background, screen );
 
+	gamemenu.addButton( 170, 120, 320, 240, "button.png");
 
 	//If everything initialized fine
 
@@ -101,7 +102,9 @@ void Game::displayMenu() {
 			setState(QUIT);
 		}
 
-		apply_surface( 0, 0, background, screen);
+		gamemenu.update( &event);
+		gamemenu.draw( screen) ;
+
 
 		//Update the screen
 		if (SDL_Flip(screen) == -1) {
@@ -122,4 +125,5 @@ void Game::setState(int state) {
 
 	this->state = state;
 }
+
 

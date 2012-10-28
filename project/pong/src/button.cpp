@@ -7,6 +7,7 @@
 
 #include "button.h"
 #include "util.h"
+#include <iostream>
 
 // I KNOW TERRIBLE
 
@@ -57,6 +58,7 @@ button::button(int x, int y, int w, int h, std::string i) {
 void button::draw(SDL_Surface* screen) {
 
 	//Show the button
+
 	apply_surface(box.x, box.y, image, screen, frame);
 
 }
