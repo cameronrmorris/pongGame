@@ -48,6 +48,8 @@ private:
 	SDL_Surface* screen ;
 	SDL_Surface* background ;
 
+	menu gamemenu ;
+
 
 
 };

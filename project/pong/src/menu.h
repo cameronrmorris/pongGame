@@ -9,7 +9,7 @@
 #define MENU_H_
 
 #include <vector>
-#include "SDL/SDL.h"
+#include "button.h"
 
 using namespace std;
 
@@ -18,15 +18,13 @@ class menu {
 public:
 
 	menu();
+	~menu();
 
 	void draw();
 
 private:
-	vector<SDL_Surface*> items;
-
-
+	vector<button> buttons;
 
 };
-
 
 #endif /* MENU_H_ */
