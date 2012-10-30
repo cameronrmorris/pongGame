@@ -41,9 +41,9 @@ void menu::draw(SDL_Surface* screen) {
 	}
 }
 
-void menu::addButton(int x, int y, int w, int h, std::string i) {
+void menu::addButton(int x, int y, int w, int h, std::string i, int code) {
 
-	button* temp  = new button(x, y, w, h, i);
+	button* temp  = new button(x, y, w, h, i, code);
 
 	buttons.push_back(temp);
 

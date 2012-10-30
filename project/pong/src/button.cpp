@@ -36,7 +36,7 @@ void button::setRegions( int w, int h) {
 
 }
 
-button::button(int x, int y, int w, int h, std::string i) {
+button::button(int x, int y, int w, int h, std::string i, int code) {
 
 	// Load image
 
@@ -52,6 +52,7 @@ button::button(int x, int y, int w, int h, std::string i) {
 	box.w = w;
 	box.h = h;
 
+	this->code = code ;
 	//Set the default sprite
 
 	frame = &regions[MOUSE_OUT];
@@ -102,6 +103,16 @@ void button::update(SDL_Event* event) {
 					&& (y < box.y + box.h)) {
 				//Set the button sprite
 				frame = &regions[MOUSE_DOWN];
+
+				SDL_Event user_event;
+
+				user_event.type=SDL_USEREVENT;
+				user_event.user.code= this->code;
+				user_event.user.data1=NULL;
+				user_event.user.data2=NULL;
+				SDL_PushEvent(&user_event);
+
+
 			}
 		}
 	}

@@ -23,7 +23,7 @@ public:
 	void draw( SDL_Surface* screen);
 	void update( SDL_Event* event);
 
-	void addButton(int x, int y, int w, int h, std::string i);
+	void addButton(int x, int y, int w, int h, std::string i, int code);
 private:
 	vector<button*> buttons;
 

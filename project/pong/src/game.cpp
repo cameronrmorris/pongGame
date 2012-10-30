@@ -60,12 +60,12 @@ bool Game::init() {
 
 	apply_surface( 0, 0, background, screen );
 
-	gamemenu.addButton( 170, 120, 300, 40, "images/SinglePlayer.png");
-	gamemenu.addButton( 170, 175, 300, 40, "images/TwoPlayer.png");
-	gamemenu.addButton( 170, 230, 300, 40, "images/Online.png");
-	gamemenu.addButton( 170, 285, 300, 40, "images/Highscore.png");
-	gamemenu.addButton( 10, 430, 100, 40, "images/Credits.png");
-	gamemenu.addButton( 530, 430, 100, 40, "images/Quit.png");
+	gamemenu.addButton( 170, 120, 300, 40, "images/SinglePlayer.png", SINGLEPLAYER);
+	gamemenu.addButton( 170, 175, 300, 40, "images/TwoPlayer.png", MULT_LOCAL);
+	gamemenu.addButton( 170, 230, 300, 40, "images/Online.png", MULT_ONLINE);
+	gamemenu.addButton( 170, 285, 300, 40, "images/Highscore.png", MENU);
+	gamemenu.addButton( 10, 430, 100, 40, "images/Credits.png", MENU);
+	gamemenu.addButton( 530, 430, 100, 40, "images/Quit.png", QUIT);
 
 	//If everything initialized fine
 
@@ -106,6 +106,12 @@ void Game::displayMenu() {
 		//If the user has Xed out the window
 		if (event.type == SDL_QUIT) {
 			//Quit the program
+			setState(QUIT);
+		}
+
+		if (event.user.code == QUIT ){
+
+
 			setState(QUIT);
 		}
 

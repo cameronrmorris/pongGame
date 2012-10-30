@@ -21,7 +21,7 @@ class button {
 
 public:
 
-	button(int x, int y, int w, int h, std::string i);
+	button(int x, int y, int w, int h, std::string i, int code = 0);
 
 	void update(SDL_Event* event);
 	void draw(SDL_Surface* screen);
@@ -42,6 +42,9 @@ private:
 	// Button image
 
 	SDL_Surface* image;
+
+	// Event code
+	int code ;
 
 };
 
