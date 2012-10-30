@@ -60,7 +60,7 @@ bool Game::init() {
 
 	apply_surface( 0, 0, background, screen );
 
-	gamemenu.addButton( 170, 120, 320, 240, "button.png");
+	gamemenu.addButton( 170, 120, 160, 120, "button.png");
 
 
 	//If everything initialized fine

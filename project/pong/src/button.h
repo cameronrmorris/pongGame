@@ -25,8 +25,12 @@ public:
 
 	void update(SDL_Event* event);
 	void draw(SDL_Surface* screen);
+	void setRegions( int w, int h);
 
 private:
+
+	// Button clips
+	SDL_Rect regions[4];
 
 	// Bounding box of the button
 	SDL_Rect box;
