@@ -9,31 +9,30 @@
 #include "util.h"
 #include <iostream>
 
-// I KNOW TERRIBLE
+void button::setRegions( int w, int h) {
 
-SDL_Rect regions[4];
-
-void setRegions() {
+	int xoffset = w / 2 ;
+	int yoffset = h / 2 ;
 
 	regions[MOUSE_OVER].x = 0;
 	regions[MOUSE_OVER].y = 0;
-	regions[MOUSE_OVER].w = 320;
-	regions[MOUSE_OVER].h = 240;
+	regions[MOUSE_OVER].w = xoffset;
+	regions[MOUSE_OVER].h = yoffset;
 
-	regions[MOUSE_OUT].x = 320;
+	regions[MOUSE_OUT].x = xoffset;
 	regions[MOUSE_OUT].y = 0;
-	regions[MOUSE_OUT].w = 320;
-	regions[MOUSE_OUT].h = 240;
+	regions[MOUSE_OUT].w = xoffset;
+	regions[MOUSE_OUT].h = yoffset;
 
 	regions[MOUSE_DOWN].x = 0;
-	regions[MOUSE_DOWN].y = 240;
-	regions[MOUSE_DOWN].w = 320;
-	regions[MOUSE_DOWN].h = 240;
+	regions[MOUSE_DOWN].y = yoffset;
+	regions[MOUSE_DOWN].w = xoffset;
+	regions[MOUSE_DOWN].h = yoffset;
 
-	regions[MOUSE_UP].x = 320;
-	regions[MOUSE_UP].y = 240;
-	regions[MOUSE_UP].w = 320;
-	regions[MOUSE_UP].h = 240;
+	regions[MOUSE_UP].x = xoffset;
+	regions[MOUSE_UP].y = yoffset;
+	regions[MOUSE_UP].w = xoffset;
+	regions[MOUSE_UP].h = yoffset;
 
 }
 
@@ -41,9 +40,11 @@ button::button(int x, int y, int w, int h, std::string i) {
 
 	// Load image
 
-	setRegions(); // hurr terrible i know.
-
 	this->image = load_image(i);
+
+	std::cout << image-w << std::endl;
+
+	this->setRegions( image->w, image->h);
 
 	//Set the button's attributes
 	box.x = x;
