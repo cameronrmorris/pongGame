@@ -41,7 +41,7 @@ button::button(int x, int y, int w, int h, std::string i) {
 
 	// Load image
 
-	setRegions(); // hurr terrible i know
+	setRegions(); // hurr terrible i know.
 
 	this->image = load_image(i);
 
