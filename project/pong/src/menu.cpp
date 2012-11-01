@@ -14,7 +14,13 @@ menu::menu() {
 }
 
 menu::~menu() {
-	// TODO Auto-generated destructor stub
+	for (vector<button*>::iterator it = buttons.begin(); it != buttons.end();
+					++it) {
+
+
+				free (*it);
+
+			}
 }
 
 void menu::update(SDL_Event* event) {

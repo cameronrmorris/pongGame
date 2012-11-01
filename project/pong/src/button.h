@@ -22,6 +22,7 @@ class button {
 public:
 
 	button(int x, int y, int w, int h, std::string i, int code = 0);
+	~button();
 
 	void update(SDL_Event* event);
 	void draw(SDL_Surface* screen);

@@ -59,6 +59,12 @@ button::button(int x, int y, int w, int h, std::string i, int code) {
 
 }
 
+button::~button() {
+
+	SDL_FreeSurface(image);
+
+}
+
 void button::draw(SDL_Surface* screen) {
 
 	//Show the button
