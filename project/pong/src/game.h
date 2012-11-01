@@ -32,10 +32,10 @@ class Game {
 public:
 
 	Game();
-	~Game();
+	virtual ~Game();
 
-	bool init();  // This will setup everything before the game actually loads
-	void run(); // This will initially open the menu and go from there
+	virtual bool init();  // This will setup everything before the game actually loads
+	virtual void run(); // This will initially open the menu and go from there
 
 	void displayMenu();
 
