@@ -31,3 +31,6 @@ Singleplayer.o:	Singleplayer.cpp Singleplayer.h
 	
 util.o:	util.cpp util.h
 	$(CPP) $(CPPFLAGS) -c -o util.o util.cpp
+	
+clean:
+	rm -rf ($EXECS) ($OBJS)
