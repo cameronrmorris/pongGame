@@ -13,7 +13,7 @@ OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
 all: $(EXECS) $(OBJS)
 
 pong: $(OBJS) main.cpp
-	$(CPP) $(OTHER) $(CPPFLAGS) -o pong $(OBJS)  $(SDLFLAGS) 
+	$(CPP) $(OTHER) $(CPPFLAGS) -o pong main.cpp $(OBJS) $(SDLFLAGS) 
 
 Entity.o:	Entity.cpp Entity.h
 	$(CPP) $(CPPFLAGS) -c -o Entity.o Entity.cpp
