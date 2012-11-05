@@ -6,7 +6,7 @@
 CPP= g++
 SDL_LIB = -I /SDL/include/
 CPPFLAGS = -O0 -g3 -Wall
-OBJS: Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
+OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
 
 all: $(OBJS)
 
