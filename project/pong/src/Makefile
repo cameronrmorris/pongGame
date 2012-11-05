@@ -4,7 +4,7 @@
 
 
 CPP= g++
-SDL_LIB = -I SDL\include
+SDL_LIB = -I /SDL/include/
 CPPFLAGS = -O0 -g3 -Wall 
 
 Entity.o:	Entity.cpp Entity.h
