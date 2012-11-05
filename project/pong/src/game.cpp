@@ -15,7 +15,7 @@ Game::Game() {
 	setState(INIT);
 
 	if( !this->init() ) {
-		std::cerr << "Something exploded" << std::endl;
+		std::cerr << "Something exploded." << std::endl;
 
 	}
 
