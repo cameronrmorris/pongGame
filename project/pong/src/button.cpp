@@ -36,15 +36,9 @@ void button::setRegions( int w, int h) {
 
 }
 
-button::button(int x, int y, int w, int h, std::string i, int code) {
+button::button(int x, int y, int w, int h, std::string i, int code) : Entity( i ) {
 
-	// Load image
-
-	this->image = load_image(i);
-
-	std::cout << image-w << std::endl;
-
-	this->setRegions( image->w, image->h);
+	this->setRegions( getImage()->w, getImage()->h);
 
 	//Set the button's attributes
 	box.x = x;
@@ -61,7 +55,7 @@ button::button(int x, int y, int w, int h, std::string i, int code) {
 
 button::~button() {
 
-	SDL_FreeSurface(image);
+
 
 }
 
@@ -69,7 +63,9 @@ void button::draw(SDL_Surface* screen) {
 
 	//Show the button
 
-	apply_surface(box.x, box.y, image, screen, frame);
+	std::cout << getImage() << std::endl;
+
+	apply_surface(box.x, box.y, getImage(), screen, frame);
 
 }
 

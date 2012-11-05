@@ -10,6 +10,7 @@
 
 #include "SDL/SDL.h"
 #include <string>
+#include "Entity.h"
 
 enum BUTTON_STATES {
 
@@ -17,7 +18,7 @@ enum BUTTON_STATES {
 
 };
 
-class button {
+class button : public Entity {
 
 public:
 
@@ -39,10 +40,6 @@ private:
 	// Current clip of the button
 
 	SDL_Rect* frame;
-
-	// Button image
-
-	SDL_Surface* image;
 
 	// Event code
 	int code ;

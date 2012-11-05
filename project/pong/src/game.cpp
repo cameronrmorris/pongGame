@@ -54,8 +54,6 @@ bool Game::init() {
 
 	// Load background image
 
-	std::cout << screen << endl;
-
 	background = load_image( "images/background.png") ;
 
 	apply_surface( 0, 0, background, screen );
