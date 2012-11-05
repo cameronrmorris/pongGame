@@ -4,11 +4,16 @@
 
 
 CPP= g++
-SDL_LIB = -I /SDL/include/
+SDLFLAGS = -lSDLmain -lSDL -lSDL_image
+OTHER = -static-libgcc -static-libstdc++
 CPPFLAGS = -O0 -g3 -Wall
+EXECS = pong
 OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
 
-all: $(OBJS)
+all: $(EXECS) $(OBJS)
+
+pong: $(OBJS) main.cpp
+	$(CPP) $(OTHER) $(CPPFLAGS) $(SDLFLAGS) -o pong $(OBJS)
 
 Entity.o:	Entity.cpp Entity.h
 	$(CPP) $(CPPFLAGS) -c -o Entity.o Entity.cpp
