@@ -2,8 +2,6 @@
 # Makefile for pong
 # so jenkins can build this LINUX ONLY
 
-
-CPP= g++
 SDLFLAGS = -lSDLmain -lSDL -lSDL_image
 WINDOWS = -I SDL/include -L SDL/lib -lmingw32
 OTHER = -static-libgcc -static-libstdc++
