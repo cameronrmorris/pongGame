@@ -37,4 +37,4 @@ util.o:	util.cpp util.h
 	$(CPP) $(CPPFLAGS) -c -o util.o util.cpp
 	
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(EXECS)
