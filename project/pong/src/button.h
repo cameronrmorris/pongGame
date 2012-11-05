@@ -24,9 +24,8 @@ public:
 
 	button(int x, int y, int w, int h, std::string i, int code = 0);
 	~button();
-
+	void draw( SDL_Surface* screen);
 	void update(SDL_Event* event);
-	void draw(SDL_Surface* screen);
 	void setRegions( int w, int h);
 
 private:
