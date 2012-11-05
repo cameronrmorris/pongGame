@@ -6,10 +6,9 @@
 CPP= g++
 SDL_LIB = -I /SDL/include/
 CPPFLAGS = -O0 -g3 -Wall
-EXECS: 
 OBJS: Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
 
-all: $(EXECS) $(OBJS)
+all: $(OBJS)
 
 Entity.o:	Entity.cpp Entity.h
 	$(CPP) $(CPPFLAGS) -c -o Entity.o Entity.cpp
@@ -33,4 +32,4 @@ util.o:	util.cpp util.h
 	$(CPP) $(CPPFLAGS) -c -o util.o util.cpp
 	
 clean:
-	rm -rf $(EXECS) $(OBJS)
+	rm -rf $(OBJS)
