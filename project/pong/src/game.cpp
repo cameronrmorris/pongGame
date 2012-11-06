@@ -177,7 +177,7 @@ std::string Game::toString() {
 
 	output  << "State= " << stateToString(getState())
 			<< " Background= " << this->background
-			<< " Screen= " << this->screen << std::endl;
+			<< " Screen= " << this->screen;
 
 	return output.str();
 
