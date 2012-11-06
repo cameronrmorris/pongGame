@@ -11,6 +11,8 @@
 
 Game::Game() {
 
+	LogInit("game.log");
+
 	setState(INIT);
 
 	if( !this->init() ) {

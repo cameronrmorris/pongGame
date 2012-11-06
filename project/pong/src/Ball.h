@@ -25,6 +25,8 @@ public:
 	int getY() const;
 	void setY(int y);
 
+	virtual void update( SDL_Event* event );
+
 private:
 	int x ;
 	int y ;

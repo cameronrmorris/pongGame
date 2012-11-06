@@ -11,11 +11,7 @@
 
 Entity::Entity( std::string image) {
 
-	if( !(this->image = load_image( image )) )  {
-
-	}
-
-
+	this->image = load_image( image );
 
 }
 

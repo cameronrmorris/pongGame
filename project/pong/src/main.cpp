@@ -12,8 +12,6 @@
 
 int main( int argc, char *argv[]) {
 
-	LogInit("game.log");
-
 	Game game;
 
 	game.run();

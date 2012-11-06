@@ -51,3 +51,6 @@ int Ball::getY() const {
 void Ball::setY(int y) {
 	this->y = y;
 }
+
+void Ball::update(SDL_Event* event) {
+}
