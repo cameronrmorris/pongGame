@@ -7,7 +7,6 @@
 
 #include "Entity.h"
 #include "util.h"
-#include <iostream>
 
 Entity::Entity( std::string image) {
 
