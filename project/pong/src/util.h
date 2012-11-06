@@ -14,8 +14,8 @@ SDL_Surface *load_image( std::string filename );
 
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* snip = NULL );
 
-void LogWrite( std::string message, std::string file = "game.log");
-
+void LogWrite( std::string message, std::string file);
+void LogInit( std::string file);
 
 
 #endif /* UTIL_H_ */

@@ -14,7 +14,7 @@ Game::Game() {
 	setState(INIT);
 
 	if( !this->init() ) {
-		LogWrite("Something bad happened in game init");
+		LogWrite("Something bad happened in game init", "game.log");
 
 	}
 

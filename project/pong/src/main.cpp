@@ -8,9 +8,11 @@
 #include <iostream>
 #include "SDL/SDL.h"
 #include "game.h"
-
+#include "util.h"
 
 int main( int argc, char *argv[]) {
+
+	LogInit("game.log");
 
 	Game game;
 

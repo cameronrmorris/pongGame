@@ -10,11 +10,12 @@
 #include "util.h"
 #include <iostream>
 #include <fstream>
+#include <time.h>
 
 
 SDL_Surface *load_image( std::string filename )
 {
-	LogWrite("loading image: " + filename);
+	LogWrite("loading image: " + filename, "game.log");
     //The image that's loaded
     SDL_Surface* loadedImage = NULL;
 
@@ -35,9 +36,9 @@ SDL_Surface *load_image( std::string filename )
     }
 
     if( !loadedImage )
-    	LogWrite("...failed to load");
+    	LogWrite("...failed to load","game.log");
     else
-    	LogWrite("...loaded");
+    	LogWrite("...loaded", "game.log");
 
 
     //Return the optimized image
@@ -60,10 +61,25 @@ void LogWrite(std::string message, std::string file) {
 
 	std::ofstream f;
 
-	f.open("game.log", std::ios::app);
+	f.open(file.c_str(), std::ios::app);
+
+	if (f.is_open()) {
+		f << message << std::endl;
+	}
+	f.close();
+
+}
+
+void LogInit(std::string file) {
+
+	std::ofstream f;
+
+	time_t ltime; /* calendar time */
+	ltime=time(NULL); /* get current cal time */
+	f.open(file.c_str(), std::ios::out);
 
 	if (f.is_open())
-			f << message << std::endl;
+		f << "Log opened :" << asctime( localtime(&ltime) ) << std::endl;
 
 	f.close();
 
