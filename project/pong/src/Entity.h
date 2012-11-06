@@ -10,6 +10,7 @@
 
 #include "SDL/SDL.h"
 #include <string>
+#include <sstream>
 
 
 class Entity {
@@ -18,6 +19,7 @@ public:
 	virtual ~Entity();
 	virtual void draw( SDL_Surface* screen );
 	virtual void update( SDL_Event* event );
+	virtual std::string toString();
 	SDL_Surface* getImage() ;
 	void setImage( SDL_Surface* image);
 

@@ -18,12 +18,15 @@ class menu {
 public:
 
 	menu();
-	~menu();
+	virtual ~menu();
 
 	void draw( SDL_Surface* screen);
 	void update( SDL_Event* event);
 
 	void addButton(int x, int y, int w, int h, std::string i, int code);
+
+	virtual std::string toString();
+
 private:
 	vector<button*> buttons;
 

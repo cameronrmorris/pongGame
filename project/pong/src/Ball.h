@@ -25,6 +25,7 @@ public:
 	int getY() const;
 	void setY(int y);
 
+	virtual void draw( SDL_Surface *screen);
 	virtual void update( SDL_Event* event );
 
 private:

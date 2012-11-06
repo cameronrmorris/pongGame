@@ -23,7 +23,9 @@ class button : public Entity {
 public:
 
 	button(int x, int y, int w, int h, std::string i, int code = 0);
-	~button();
+	virtual ~button();
+
+	virtual std::string toString() ;
 	void draw( SDL_Surface* screen);
 	void update(SDL_Event* event);
 	void setRegions( int w, int h);

@@ -9,6 +9,23 @@
 #include "util.h"
 #include <iostream>
 
+std::string button::toString() {
+
+	std::stringstream output ;
+
+	output << Entity::toString();
+
+	output << " X=" << box.x
+			<< " Y=" << box.y
+			<< " W=" << box.w
+			<< " H=" << box.h
+			<< " Code=" << this->code ;
+
+	return output.str();
+
+
+}
+
 void button::setRegions( int w, int h) {
 
 	int xoffset = w / 2 ;

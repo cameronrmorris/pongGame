@@ -6,6 +6,7 @@
  */
 
 #include "Ball.h"
+#include "util.h"
 
 Ball::Ball(int x, int y, float velx, float vely, std::string image) : Entity( image ) {
 
@@ -52,5 +53,17 @@ void Ball::setY(int y) {
 	this->y = y;
 }
 
+void Ball::draw(SDL_Surface* screen) {
+
+	//Show the button
+	apply_surface(getX(), getY(), getImage(), screen, NULL);
+}
+
 void Ball::update(SDL_Event* event) {
+
+	LogWrite("moving ball", "game.log");
+
+	this->x += this->velx ;
+
+
 }

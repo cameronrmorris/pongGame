@@ -10,6 +10,8 @@
 
 #include "SDL/SDL.h"
 #include "menu.h"
+#include <string>
+#include <sstream>
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -41,6 +43,8 @@ public:
 
 	int getState();
 	void setState( int state );
+
+	virtual std::string toString() ;
 
 private:
 

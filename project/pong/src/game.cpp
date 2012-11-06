@@ -8,6 +8,7 @@
 #include "game.h"
 #include "SDL/SDL.h"
 #include "util.h"
+#include "Ball.h"
 
 Game::Game() {
 
@@ -99,8 +100,14 @@ void Game::displayMenu() {
 
 	SDL_Event event;
 
+	LogWrite(toString(), "game.log");
+	LogWrite(gamemenu.toString(), "game.log");
+
+
 	//While there's an event to handle
-	while (SDL_PollEvent(&event)) {
+	while (state == MENU) {
+
+		SDL_PollEvent(&event);
 
 		//If the user has Xed out the window
 		if (event.type == SDL_QUIT) {
@@ -138,4 +145,41 @@ void Game::setState(int state) {
 	this->state = state;
 }
 
+std::string stateToString( int s ) {
 
+
+	switch (s) {
+
+	case INIT:
+		return "INIT";
+	case MENU:
+		return "MENU";
+	case SINGLEPLAYER:
+		return "SINGLEPLAYER";
+	case MULT_LOCAL:
+		return "MULT_LOCAL";
+	case MULT_ONLINE:
+		return "MULT_ONLINE";
+	case QUIT:
+		return "QUIT";
+	default:
+		return "INVALID";
+
+	}
+
+	return "INVALID";
+
+}
+
+std::string Game::toString() {
+
+	std::stringstream output ;
+
+	output  << "State= " << stateToString(getState())
+			<< " Background= " << this->background
+			<< " Screen= " << this->screen << std::endl;
+
+	return output.str();
+
+
+}

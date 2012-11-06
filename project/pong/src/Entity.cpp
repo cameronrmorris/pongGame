@@ -34,3 +34,13 @@ SDL_Surface* Entity::getImage()  {
 void Entity::setImage( SDL_Surface* image) {
 	this->image = image;
 }
+
+std::string Entity::toString() {
+
+	std::stringstream output ;
+
+	output  << " Image=" << getImage();
+
+	return output.str();
+
+}

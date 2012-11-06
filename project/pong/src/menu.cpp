@@ -53,3 +53,23 @@ void menu::addButton(int x, int y, int w, int h, std::string i, int code) {
 	buttons.push_back(temp);
 
 }
+
+std::string menu::toString() {
+
+	std::stringstream output ;
+
+	output << "Buttons = {";
+
+	for (vector<button*>::iterator it = buttons.begin(); it != buttons.end();
+				++it) {
+
+			output << " " << (*it)->toString() << " ";
+
+		}
+
+	output << "}";
+
+	return output.str();
+
+
+}
