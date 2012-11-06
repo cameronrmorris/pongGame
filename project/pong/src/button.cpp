@@ -62,9 +62,6 @@ button::~button() {
 void button::draw(SDL_Surface* screen) {
 
 	//Show the button
-
-	std::cout << getImage() << std::endl;
-
 	apply_surface(box.x, box.y, getImage(), screen, frame);
 
 }

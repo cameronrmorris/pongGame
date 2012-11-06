@@ -8,14 +8,13 @@
 #include "game.h"
 #include "SDL/SDL.h"
 #include "util.h"
-#include <iostream>
 
 Game::Game() {
 
 	setState(INIT);
 
 	if( !this->init() ) {
-		std::cerr << "Something exploded." << std::endl;
+		gamelog.write("Something exploded\n");
 
 	}
 

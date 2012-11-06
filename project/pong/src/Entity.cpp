@@ -11,11 +11,7 @@
 
 Entity::Entity( std::string image) {
 
-	std::cout << "loading image " << image << std::endl;
-
 	if( !(this->image = load_image( image )) )  {
-
-		std::cout << "error loading image: " << image << std::endl;
 
 	}
 

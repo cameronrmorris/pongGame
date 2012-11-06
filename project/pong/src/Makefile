@@ -22,6 +22,9 @@ pong.exe: $(OBJS) main.cpp
 pong: $(OBJS) main.cpp
 	$(CPP) $(OTHER) $(CPPFLAGS) -o pong main.cpp $(OBJS) $(SDLFLAGS)	
 
+Log.o:	Log.cpp Log.h
+	$(CPP) $(CPPFLAGS) -c -o Log.o Log.cpp
+
 Entity.o:	Entity.cpp Entity.h
 	$(CPP) $(CPPFLAGS) -c -o Entity.o Entity.cpp
 
