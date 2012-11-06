@@ -6,3 +6,5 @@
 # Compiled Dynamic libraries
 *.so
 *.exe
+
+game.log
