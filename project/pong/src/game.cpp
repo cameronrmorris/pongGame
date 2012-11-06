@@ -14,7 +14,7 @@ Game::Game() {
 	setState(INIT);
 
 	if( !this->init() ) {
-		gamelog.write("Something exploded\n");
+		LogWrite("Something bad happened in game init");
 
 	}
 

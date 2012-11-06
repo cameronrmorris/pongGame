@@ -6,7 +6,7 @@ SDLFLAGS = -lSDLmain -lSDL -lSDL_image
 WINDOWS = -I SDL/include -L SDL/lib -lmingw32
 OTHER = -static-libgcc -static-libstdc++
 EXECS = pong pong.exe
-OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Log.o
+OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
 
 linux: CPP=g++
 linux: CPPFLAGS = -O0 -g3 -Wall
@@ -21,9 +21,6 @@ pong.exe: $(OBJS) main.cpp
 
 pong: $(OBJS) main.cpp
 	$(CPP) $(OTHER) $(CPPFLAGS) -o pong main.cpp $(OBJS) $(SDLFLAGS)	
-
-Log.o:	Log.cpp Log.h
-	$(CPP) $(CPPFLAGS) -c -o Log.o Log.cpp
 
 Entity.o:	Entity.cpp Entity.h
 	$(CPP) $(CPPFLAGS) -c -o Entity.o Entity.cpp

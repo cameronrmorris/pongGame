@@ -9,7 +9,6 @@
 #define GAME_H_
 
 #include "SDL/SDL.h"
-#include "Log.h"
 #include "menu.h"
 
 #define SCREEN_WIDTH 640
@@ -48,8 +47,6 @@ private:
 	int state ;
 	SDL_Surface* screen ;
 	SDL_Surface* background ;
-
-	Log gamelog;
 
 	menu gamemenu ;
 

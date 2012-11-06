@@ -8,10 +8,13 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "util.h"
+#include <iostream>
+#include <fstream>
 
 
 SDL_Surface *load_image( std::string filename )
 {
+	LogWrite("loading image: " + filename);
     //The image that's loaded
     SDL_Surface* loadedImage = NULL;
 
@@ -31,6 +34,12 @@ SDL_Surface *load_image( std::string filename )
         SDL_FreeSurface( loadedImage );
     }
 
+    if( !loadedImage )
+    	LogWrite("...failed to load");
+    else
+    	LogWrite("...loaded");
+
+
     //Return the optimized image
     return optimizedImage;
 }
@@ -45,4 +54,17 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination,
 
     //Blit the surface
     SDL_BlitSurface( source, snip, destination, &offset );
+}
+
+void LogWrite(std::string message, std::string file) {
+
+	std::ofstream f;
+
+	f.open("game.log", std::ios::app);
+
+	if (f.is_open())
+			f << message << std::endl;
+
+	f.close();
+
 }
