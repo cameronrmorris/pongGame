@@ -11,8 +11,7 @@ OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
 
 linux: pong
 
-windows: pong.exe
-	CPPFLAGS = -O0 -g3 -Wall -I SDL/include
+windows: pong.exe CPPFLAGS = -O0 -g3 -Wall -I SDL/include
 
 pong.exe: $(OBJS) main.cpp
 	$(CPP) $(OTHER) $(WINDOWS) $(CPPFLAGS) -o pong.exe main.cpp $(OBJS) $(SDLFLAGS)
