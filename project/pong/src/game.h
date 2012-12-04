@@ -41,10 +41,14 @@ public:
 
 	void displayMenu();
 
+	void startSinglePlayer();
+
 	int getState();
 	void setState( int state );
 
 	virtual std::string toString() ;
+	const Game*& getCurrentGame() const;
+	void setCurrentGame(const Game*& currentGame);
 
 private:
 
@@ -53,6 +57,9 @@ private:
 	SDL_Surface* background ;
 
 	menu gamemenu ;
+
+	// Instance of the playable game being run
+	Game *currentGame;
 
 
 

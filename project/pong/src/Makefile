@@ -10,7 +10,7 @@ OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o
 all: linux tests
 
 linux: CPP=g++
-linux: CPPFLAGS = -O0 -g3 -Wall
+linux: CPPFLAGS = -O0 -g -Wall
 linux: pong
 
 windows: CPP=i586-mingw32msvc-g++

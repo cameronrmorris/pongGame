@@ -6,6 +6,7 @@
  */
 
 #include "game.h"
+#include "Singleplayer.h"
 #include "SDL/SDL.h"
 #include "util.h"
 #include "Ball.h"
@@ -17,10 +18,6 @@ Game::Game() {
 
 	setState(INIT);
 
-	if( !this->init() ) {
-		LogWrite("Something bad happened in game init", "game.log");
-
-	}
 
 }
 
@@ -82,6 +79,14 @@ void Game::run() {
 
 		switch (getState()) {
 
+
+		case INIT:
+			init();
+			break ;
+
+		case SINGLEPLAYER:
+			startSinglePlayer();
+			break;
 		case MENU:
 
 			displayMenu();
@@ -127,10 +132,18 @@ void Game::displayMenu() {
 			setState(QUIT);
 		}
 
-		if (event.user.code == QUIT ){
 
+		switch (event.user.code) {
 
+		case QUIT:
 			setState(QUIT);
+			break;
+		case SINGLEPLAYER:
+			setState(SINGLEPLAYER);
+			break;
+		default:
+			break;
+
 		}
 
 		gamemenu.update( &event);
@@ -151,7 +164,7 @@ void Game::displayMenu() {
 			std::stringstream caption;
 
 			//Calculate the frames per second and create the string
-			caption << "Pong - FPS:  " << frame / ( fps.get_ticks() / 1000.f );
+			caption << "Pong - FPS: " << frame / ( fps.get_ticks() / 1000.f );
 
 			//Reset the caption
 			SDL_WM_SetCaption( caption.str().c_str(), NULL );
@@ -164,6 +177,25 @@ void Game::displayMenu() {
 	}
 
 }
+
+void Game::startSinglePlayer() {
+
+	LogWrite("Starting singleplayer...", "game.log");
+
+	currentGame = new Singleplayer(screen);
+
+
+	currentGame->run();
+
+
+	free(currentGame);
+
+	// Game ended?
+	setState(MENU);
+
+
+}
+
 
 int Game::getState() {
 
