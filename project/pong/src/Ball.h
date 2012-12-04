@@ -27,6 +27,8 @@ public:
 
 	virtual void draw( SDL_Surface *screen);
 	virtual void update( SDL_Event* event );
+	virtual std::string toString() ;
+	
 
 private:
 	int x ;

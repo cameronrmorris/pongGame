@@ -1,12 +1,13 @@
 #
 # Makefile for pong
-# so jenkins can build this LINUX ONLY
 
 SDLFLAGS = -lSDLmain -lSDL -lSDL_image
 WINDOWS = -I SDL/include -L SDL/lib -lmingw32
 OTHER = -static-libgcc -static-libstdc++
 EXECS = pong pong.exe
-OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o
+OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o
+
+all: linux tests
 
 linux: CPP=g++
 linux: CPPFLAGS = -O0 -g3 -Wall
@@ -15,6 +16,9 @@ linux: pong
 windows: CPP=i586-mingw32msvc-g++
 windows: CPPFLAGS = -O0 -g3 -Wall -I SDL/include
 windows: pong.exe
+
+install: all
+	cp pong ../../../game/
 
 pong.exe: $(OBJS) main.cpp
 	$(CPP) $(OTHER) $(WINDOWS) $(CPPFLAGS) -o pong.exe main.cpp $(OBJS) $(SDLFLAGS)
@@ -33,15 +37,30 @@ button.o:	button.cpp button.h
 
 game.o:	game.cpp game.h
 	$(CPP) $(CPPFLAGS) -c -o game.o game.cpp
-	
+
 menu.o:	menu.cpp menu.h
 	$(CPP) $(CPPFLAGS) -c -o menu.o menu.cpp
 
 Singleplayer.o:	Singleplayer.cpp Singleplayer.h
 	$(CPP) $(CPPFLAGS) -c -o Singleplayer.o Singleplayer.cpp
-	
+
 util.o:	util.cpp util.h
 	$(CPP) $(CPPFLAGS) -c -o util.o util.cpp
-	
+
+Timer.o: Timer.cpp Timer.h
+	$(CPP) $(CPPFLAGS) -c -o Timer.o Timer.cpp
+
+## Test section
+
+UNITS = testBall
+
+tests: CPP=g++
+tests: CPPFLAGS = -O0 -g3 -Wall
+tests: testBall
+
+testBall: Ball.o Entity.o testBall.cpp util.o
+	$(CPP) $(CPPFLAGS) -o testBall testBall.cpp Ball.o Entity.o util.o $(SDLFLAGS)
+
+
 clean:
-	rm -rf $(OBJS) $(EXECS)
+	rm -rf $(OBJS) $(EXECS) $(UNITS)

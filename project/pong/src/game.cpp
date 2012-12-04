@@ -9,6 +9,7 @@
 #include "SDL/SDL.h"
 #include "util.h"
 #include "Ball.h"
+#include "Timer.h"
 
 Game::Game() {
 
@@ -103,6 +104,17 @@ void Game::displayMenu() {
 	LogWrite(toString(), "game.log");
 	LogWrite(gamemenu.toString(), "game.log");
 
+	// FPS test
+	int frame = 0 ;
+	Timer fps ;
+	Timer update ;
+
+
+	 update.start();
+
+	 //Start the frame timer
+	 fps.start();
+
 
 	//While there's an event to handle
 	while (state == MENU) {
@@ -129,6 +141,25 @@ void Game::displayMenu() {
 		if (SDL_Flip(screen) == -1) {
 			return;
 		}
+
+		frame++;
+
+		//If a second has passed since the caption was last updated
+		if( update.get_ticks() > 1000 )
+		{
+			//The frame rate as a string
+			std::stringstream caption;
+
+			//Calculate the frames per second and create the string
+			caption << "Pong - FPS:  " << frame / ( fps.get_ticks() / 1000.f );
+
+			//Reset the caption
+			SDL_WM_SetCaption( caption.str().c_str(), NULL );
+
+			//Restart the update timer
+			update.start();
+		}
+
 
 	}
 

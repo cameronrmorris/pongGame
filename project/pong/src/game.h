@@ -16,7 +16,7 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define BIT_DEPTH 32
-
+#define FRAMES_PER_SECOND 60
 
 enum gamestate {
 

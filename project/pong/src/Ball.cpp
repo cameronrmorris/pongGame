@@ -63,7 +63,25 @@ void Ball::update(SDL_Event* event) {
 
 	LogWrite("moving ball", "game.log");
 
-	this->x += this->velx ;
+	setX( getX() + getVelx() );
+	setY( getY() + getVely() );
+
+}
+
+
+std::string Ball::toString() {
+
+
+  std::stringstream output ;
+
+  output << Entity::toString() ;
+
+  output << " X=" << getX()
+	 << " Y=" << getY()
+	 << " VelX=" << getVelx()
+	 << " VelY=" << getVely();
+
+  return output.str();
 
 
 }
