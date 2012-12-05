@@ -14,25 +14,25 @@
 class Ball: public Entity {
 
 public:
-	Ball( int x, int y, float velx, float vely, std::string image);
+	Ball( float x, float y, float velx, float vely, std::string image);
 	virtual ~Ball();
 	float getVelx() const;
 	void setVelx(float velx);
 	float getVely() const;
 	void setVely(float vely);
-	int getX() const;
-	void setX(int x);
-	int getY() const;
-	void setY(int y);
+	float getX() const;
+	void setX(float x);
+	float getY() const;
+	void setY(float y);
 
 	virtual void draw( SDL_Surface *screen);
-	virtual void update( SDL_Event* event );
+	virtual void update( SDL_Event* event, Uint32 ticks );
 	virtual std::string toString() ;
 	
 
 private:
-	int x ;
-	int y ;
+	float x ;
+	float y ;
 	float velx ;
 	float vely ;
 

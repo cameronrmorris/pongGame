@@ -27,7 +27,7 @@ public:
 	virtual bool init();  // This will setup everything before the game actually loads
 	virtual void run(); // This will initially open the menu and go from there
 	virtual void draw(); // This will redraw the window
-	virtual void update(SDL_Event* event); // This will update eveyrthing in the game
+	virtual void update(SDL_Event* event, Uint32 ticks); // This will update eveyrthing in the game
 	int getState() const;
 	void setState(int state);
 

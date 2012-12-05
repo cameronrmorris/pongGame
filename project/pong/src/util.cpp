@@ -29,7 +29,7 @@ SDL_Surface *load_image( std::string filename )
     if( loadedImage != NULL )
     {
         //Create an optimized image
-        optimizedImage = SDL_DisplayFormat( loadedImage );
+        optimizedImage = SDL_DisplayFormatAlpha( loadedImage );
 
         //Free the old image
         SDL_FreeSurface( loadedImage );

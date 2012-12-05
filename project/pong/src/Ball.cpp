@@ -7,8 +7,10 @@
 
 #include "Ball.h"
 #include "util.h"
+#include "game.h"
 
-Ball::Ball(int x, int y, float velx, float vely, std::string image) : Entity( image ) {
+Ball::Ball(float x, float y, float velx, float vely, std::string image) :
+		Entity(image) {
 
 	setX(x);
 	setY(y);
@@ -37,19 +39,19 @@ void Ball::setVely(float vely) {
 	this->vely = vely;
 }
 
-int Ball::getX() const {
+float Ball::getX() const {
 	return x;
 }
 
-void Ball::setX(int x) {
+void Ball::setX(float x) {
 	this->x = x;
 }
 
-int Ball::getY() const {
+float Ball::getY() const {
 	return y;
 }
 
-void Ball::setY(int y) {
+void Ball::setY(float y) {
 	this->y = y;
 }
 
@@ -59,29 +61,42 @@ void Ball::draw(SDL_Surface* screen) {
 	apply_surface(getX(), getY(), getImage(), screen, NULL);
 }
 
-void Ball::update(SDL_Event* event) {
+void Ball::update(SDL_Event* event, Uint32 ticks) {
 
-	LogWrite("moving ball", "game.log");
+	if (getX() < 0) {
+		setX(0);
+		setVelx(-getVelx());
+	}
 
-	setX( getX() + getVelx() );
-	setY( getY() + getVely() );
+	if (getX() + getImage()->w > SCREEN_WIDTH) {
+		setX(SCREEN_WIDTH - getImage()->w);
+		setVelx(-getVelx());
+	}
+
+	if (getY() < 0) {
+		setY(0);
+		setVely(-getVely());
+	}
+
+	if (getY() + getImage()->h > SCREEN_HEIGHT) {
+		setY(SCREEN_HEIGHT - getImage()->h);
+		setVely(-getVely());
+	}
+
+	setX(getX() + (getVelx() * (ticks / 1000.f)));
+	setY(getY() + (getVely() * (ticks / 1000.f)));
 
 }
 
-
 std::string Ball::toString() {
 
+	std::stringstream output;
 
-  std::stringstream output ;
+	output << Entity::toString();
 
-  output << Entity::toString() ;
+	output << " X=" << getX() << " Y=" << getY() << " VelX=" << getVelx()
+			<< " VelY=" << getVely();
 
-  output << " X=" << getX()
-	 << " Y=" << getY()
-	 << " VelX=" << getVelx()
-	 << " VelY=" << getVely();
-
-  return output.str();
-
+	return output.str();
 
 }

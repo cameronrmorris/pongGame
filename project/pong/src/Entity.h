@@ -18,7 +18,7 @@ public:
 	Entity( std::string image);
 	virtual ~Entity();
 	virtual void draw( SDL_Surface* screen );
-	virtual void update( SDL_Event* event );
+	virtual void update( SDL_Event* event, Uint32 ticks );
 	virtual std::string toString();
 	SDL_Surface* getImage() ;
 	void setImage( SDL_Surface* image);

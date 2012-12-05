@@ -113,7 +113,7 @@ void Game::displayMenu() {
 	int frame = 0 ;
 	Timer fps ;
 	Timer update ;
-
+	Timer delta;
 
 	 update.start();
 

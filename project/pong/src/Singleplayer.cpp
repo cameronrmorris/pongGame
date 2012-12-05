@@ -24,13 +24,22 @@ Singleplayer::Singleplayer(SDL_Surface *screen) {
 }
 
 Singleplayer::~Singleplayer() {
-	// TODO Auto-generated destructor stub
+	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
+			++it) {
+
+		free(*it);
+
+	}
 }
 
 bool Singleplayer::init() {
 
-	entities.push_back(new Ball(0, 0, 0.5, 1, "images/Quit.png"));
-	entities.push_back(new Ball(480, 0, -1, 1, "images/Quit.png"));
+	background = load_image("images/background.png");
+
+	apply_surface(0, 0, background, screen);
+
+	entities.push_back(new Ball(0.0, 0.0, 100.0, 100.0, "images/ball.png"));
+	entities.push_back(new Ball(480, 0.0, -500.0, 100.0, "images/ball.png"));
 
 	setState(PLAYING);
 
@@ -47,12 +56,11 @@ void Singleplayer::run() {
 	int frame = 0;
 	Timer fps;
 	Timer update;
+	Timer delta;
 
 	update.start();
-
-	//Start the frame timer
 	fps.start();
-
+	delta.start();
 	//While there's an event to handle
 	while (state == PLAYING) {
 
@@ -74,7 +82,8 @@ void Singleplayer::run() {
 
 		}
 
-		this->update(&event);
+		this->update(&event, delta.get_ticks());
+		delta.start();
 		draw();
 
 		//Update the screen
@@ -91,7 +100,6 @@ void Singleplayer::run() {
 
 			//Calculate the frames per second and create the string
 			caption << "Pong - FPS: " << frame / (fps.get_ticks() / 1000.f);
-
 			//Reset the caption
 			SDL_WM_SetCaption(caption.str().c_str(), NULL);
 
@@ -105,6 +113,8 @@ void Singleplayer::run() {
 
 void Singleplayer::draw() {
 
+	apply_surface(0, 0, background, screen);
+
 	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
 			++it) {
 
@@ -114,15 +124,14 @@ void Singleplayer::draw() {
 
 }
 
-void Singleplayer::update(SDL_Event *event) {
+void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
 	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
-					++it) {
+			++it) {
 
+		(*it)->update(event, ticks);
 
-				(*it)->update(event);
-
-			}
+	}
 
 }
 

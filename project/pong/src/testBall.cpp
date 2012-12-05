@@ -11,7 +11,7 @@ int main( int argc, char *argv[]) {
 
   for ( int i = 0 ; i < 5 ; i++ ) {
 
-    myBall.update(NULL);
+    myBall.update(NULL, 0);
     
     cout << myBall.toString() << endl;
 

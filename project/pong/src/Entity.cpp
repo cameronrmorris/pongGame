@@ -23,7 +23,7 @@ void Entity::draw(SDL_Surface* screen) {
 	apply_surface(0, 0, image, screen, NULL);
 }
 
-void Entity::update(SDL_Event* event) {
+void Entity::update(SDL_Event* event, Uint32 ticks) {
 }
 
 SDL_Surface* Entity::getImage()  {
