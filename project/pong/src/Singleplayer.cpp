@@ -38,8 +38,8 @@ bool Singleplayer::init() {
 
 	apply_surface(0, 0, background, screen);
 
-	entities.push_back(new Ball(0.0, 0.0, 100.0, 100.0, "images/ball.png"));
-	entities.push_back(new Ball(480, 0.0, -500.0, 100.0, "images/ball.png"));
+	entities.push_back(new Ball(0, SCREEN_HEIGHT/2, 1000.0, 0, "images/ball.png"));
+
 
 	setState(PLAYING);
 

@@ -63,6 +63,9 @@ void Ball::draw(SDL_Surface* screen) {
 
 void Ball::update(SDL_Event* event, Uint32 ticks) {
 
+	setX(getX() + (getVelx() * (ticks / 1000.f)));
+	setY(getY() + (getVely() * (ticks / 1000.f)));
+
 	if (getX() < 0) {
 		setX(0);
 		setVelx(-getVelx());
@@ -83,8 +86,7 @@ void Ball::update(SDL_Event* event, Uint32 ticks) {
 		setVely(-getVely());
 	}
 
-	setX(getX() + (getVelx() * (ticks / 1000.f)));
-	setY(getY() + (getVely() * (ticks / 1000.f)));
+
 
 }
 
