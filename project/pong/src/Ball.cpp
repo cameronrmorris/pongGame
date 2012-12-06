@@ -57,7 +57,6 @@ void Ball::setY(float y) {
 
 void Ball::draw(SDL_Surface* screen) {
 
-	//Show the button
 	apply_surface(getX(), getY(), getImage(), screen, NULL);
 }
 
