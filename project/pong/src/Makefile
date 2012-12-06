@@ -7,7 +7,7 @@ OTHER = -static-libgcc -static-libstdc++
 EXECS = pong pong.exe
 OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o Paddle.o
 
-all: windows tests
+all: windows linux
 
 linux: CPP=g++
 linux: CPPFLAGS = -O0 -g -Wall
