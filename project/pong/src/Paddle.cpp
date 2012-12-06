@@ -157,6 +157,9 @@ void Paddle::update(SDL_Event* event, Uint32 ticks) {
 			setVely(getVely() + getAccy());
 			break;
 
+		default:
+			break;
+
 		}
 
 	}
