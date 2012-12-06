@@ -12,9 +12,9 @@
 #include "Ball.h"
 #include "Timer.h"
 
-Game::Game() {
+Game::Game(SDL_Surface *screen) {
 
-	LogInit("game.log");
+	this->screen = screen ;
 
 	setState(INIT);
 
@@ -24,33 +24,11 @@ Game::Game() {
 Game::~Game() {
 
 	//Free the surface
-	SDL_FreeSurface(screen);
 	SDL_FreeSurface(background);
-
-	//Quit SDL
-	SDL_Quit();
 
 }
 
 bool Game::init() {
-
-	//Initialize all SDL subsystems
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
-		return false;
-	}
-
-	//Set up the screen
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, BIT_DEPTH,
-			SDL_SWSURFACE);
-
-	//If there was an error in setting up the screen
-	if (screen == NULL) {
-		return false;
-	}
-
-	//Set the window caption
-	SDL_WM_SetCaption("Pong", NULL);
-
 
 	// Load background image
 
@@ -85,7 +63,13 @@ void Game::run() {
 			break ;
 
 		case SINGLEPLAYER:
+
+			LogWrite("SINGLE START", "game.log");
 			startSinglePlayer();
+
+			LogWrite("SINGLE END","game.log");
+			LogWrite(this->toString(), "game.log");
+
 			break;
 		case MENU:
 
@@ -182,13 +166,10 @@ void Game::startSinglePlayer() {
 
 	LogWrite("Starting singleplayer...", "game.log");
 
-	currentGame = new Singleplayer(screen);
+	Singleplayer game(screen);
 
 
-	currentGame->run();
-
-
-	free(currentGame);
+	game.run();
 
 	// Game ended?
 	setState(MENU);
@@ -245,4 +226,28 @@ std::string Game::toString() {
 	return output.str();
 
 
+}
+
+SDL_Surface* Game::getBackground() {
+	return background;
+}
+
+void Game::setBackground(SDL_Surface* background) {
+	this->background = background;
+}
+
+menu Game::getGamemenu() {
+	return gamemenu;
+}
+
+void Game::setGamemenu(menu gamemenu) {
+	this->gamemenu = gamemenu;
+}
+
+SDL_Surface* Game::getScreen() {
+	return screen;
+}
+
+void Game::setScreen(SDL_Surface* screen) {
+	this->screen = screen;
 }

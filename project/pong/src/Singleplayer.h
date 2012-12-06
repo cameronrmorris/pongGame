@@ -36,9 +36,6 @@ private:
 	int state ;
 
 	std::vector<Entity*> entities ;
-
-	SDL_Surface *screen;
-	SDL_Surface *background;
 };
 
 #endif /* SINGLEPLAYER_H_ */

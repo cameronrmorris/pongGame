@@ -18,7 +18,7 @@ menu::~menu() {
 					++it) {
 
 
-				free (*it);
+				delete *it;
 
 			}
 }

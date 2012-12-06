@@ -62,6 +62,7 @@ void LogWrite(std::string message, std::string file) {
 
 	std::ofstream f;
 
+	std::cerr << file << " " << message << std::endl;
 	f.open(file.c_str(), std::ios::app);
 
 	if (f.is_open()) {

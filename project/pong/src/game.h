@@ -33,7 +33,7 @@ class Game {
 
 public:
 
-	Game();
+	Game(SDL_Surface *screen);
 	virtual ~Game();
 
 	virtual bool init();  // This will setup everything before the game actually loads
@@ -47,8 +47,14 @@ public:
 	void setState( int state );
 
 	virtual std::string toString() ;
-	const Game*& getCurrentGame() const;
-	void setCurrentGame(const Game*& currentGame);
+	Game* getCurrentGame() ;
+	void setCurrentGame(Game* currentGame);
+	SDL_Surface* getBackground() ;
+	void setBackground(SDL_Surface* background);
+	menu getGamemenu() ;
+	void setGamemenu(menu gamemenu);
+	SDL_Surface* getScreen() ;
+	void setScreen(SDL_Surface* screen);
 
 private:
 

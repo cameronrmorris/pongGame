@@ -11,11 +11,9 @@
 #include "util.h"
 #include "Timer.h"
 
-Singleplayer::Singleplayer(SDL_Surface *screen) {
+Singleplayer::Singleplayer(SDL_Surface *screen) : Game(screen){
 
 	setState(INIT);
-
-	this->screen = screen;
 
 	if (!this->init()) {
 		LogWrite("Something bad happened in singleplayer init", "game.log");
@@ -28,16 +26,16 @@ Singleplayer::~Singleplayer() {
 	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
 			++it) {
 
-		free(*it);
+		delete *it;
 
 	}
 }
 
 bool Singleplayer::init() {
 
-	background = load_image("images/background.png");
+	setBackground(load_image("images/background.png"));
 
-	apply_surface(0, 0, background, screen);
+	apply_surface(0, 0, getBackground(), getScreen());
 
 	entities.push_back(new Ball(0, SCREEN_HEIGHT/2, 1000.0, 0, "images/ball.png"));
 	entities.push_back(new Paddle(0,0,0,0,10,10, "images/ball.png"));
@@ -89,7 +87,7 @@ void Singleplayer::run() {
 		draw();
 
 		//Update the screen
-		if (SDL_Flip(screen) == -1) {
+		if (SDL_Flip(getScreen()) == -1) {
 			return;
 		}
 
@@ -115,12 +113,12 @@ void Singleplayer::run() {
 
 void Singleplayer::draw() {
 
-	apply_surface(0, 0, background, screen);
+	apply_surface(0, 0, getBackground(), getScreen());
 
 	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
 			++it) {
 
-		(*it)->draw(screen);
+		(*it)->draw(getScreen());
 
 	}
 
