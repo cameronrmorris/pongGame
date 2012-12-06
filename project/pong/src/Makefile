@@ -7,13 +7,13 @@ OTHER = -static-libgcc -static-libstdc++
 EXECS = pong pong.exe
 OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o Paddle.o
 
-all: linux tests
+all: windows tests
 
 linux: CPP=g++
 linux: CPPFLAGS = -O0 -g -Wall
 linux: pong
 
-windows: CPP=i586-mingw32msvc-g++
+windows: CPP=i486-mingw32-g++
 windows: CPPFLAGS = -O0 -g3 -Wall -I SDL/include
 windows: pong.exe
 
@@ -49,9 +49,9 @@ util.o:	util.cpp util.h
 
 Timer.o: Timer.cpp Timer.h
 	$(CPP) $(CPPFLAGS) -c -o Timer.o Timer.cpp
-	
+
 Paddle.o: Paddle.h Paddle.cpp
-	$(CPP) $(CCPFLAGS) -c -o Paddle.o Paddle.cpp
+	$(CPP) $(CPPFLAGS) -c -o Paddle.o Paddle.cpp
 
 
 ## Test section
