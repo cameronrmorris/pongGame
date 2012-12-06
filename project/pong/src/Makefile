@@ -13,7 +13,7 @@ linux: CPP=g++
 linux: CPPFLAGS = -O0 -g -Wall
 linux: pong
 
-windows: CPP=i486-mingw32-g++
+windows: CPP=i586-mingw32msvc-g++
 windows: CPPFLAGS = -O0 -g3 -Wall -I SDL/include
 windows: pong.exe
 
