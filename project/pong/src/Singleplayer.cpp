@@ -12,7 +12,8 @@
 #include "util.h"
 #include "Timer.h"
 
-Singleplayer::Singleplayer(SDL_Surface *screen) : Game(screen){
+Singleplayer::Singleplayer(SDL_Surface *screen) :
+		Game(screen) {
 
 	setState(INIT);
 
@@ -24,12 +25,23 @@ Singleplayer::Singleplayer(SDL_Surface *screen) : Game(screen){
 }
 
 Singleplayer::~Singleplayer() {
-	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
+
+	// Paddles
+	for (vector<Paddle*>::iterator it = paddles.begin(); it != paddles.end();
 			++it) {
 
 		delete *it;
 
 	}
+
+	// Balls
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end();
+			++it) {
+
+		delete *it;
+
+	}
+
 }
 
 bool Singleplayer::init() {
@@ -38,9 +50,14 @@ bool Singleplayer::init() {
 
 	apply_surface(0, 0, getBackground(), getScreen());
 
-	entities.push_back(new Ball(0, SCREEN_HEIGHT/2, 500.0, 0, "images/ball.png"));
-	entities.push_back(new HumanPaddle(0,0,0,0,10,10, "images/ball.png", SDLK_UP, SDLK_DOWN));
-	entities.push_back(new HumanPaddle(640,0,0,0,10,10, "images/ball.png", SDLK_w, SDLK_a));
+	balls.push_back(
+			new Ball(0, SCREEN_HEIGHT / 2, 500.0, 0, "images/ball.png"));
+	paddles.push_back(
+			new HumanPaddle(0, 0, 0, 0, 10, 10, "images/ball.png", SDLK_UP,
+					SDLK_DOWN));
+	paddles.push_back(
+			new HumanPaddle(640, 0, 0, 0, 10, 10, "images/ball.png", SDLK_w,
+					SDLK_a));
 	setState(PLAYING);
 
 	return true;
@@ -82,7 +99,6 @@ void Singleplayer::run() {
 
 		}
 
-
 		this->update(&event, delta.get_ticks());
 		delta.start();
 		draw();
@@ -116,7 +132,15 @@ void Singleplayer::draw() {
 
 	apply_surface(0, 0, getBackground(), getScreen());
 
-	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
+	// Draw paddles
+	for (vector<Paddle*>::iterator it = paddles.begin(); it != paddles.end();
+			++it) {
+
+		(*it)->draw(getScreen());
+
+	}
+	// Draw balls
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end();
 			++it) {
 
 		(*it)->draw(getScreen());
@@ -127,7 +151,15 @@ void Singleplayer::draw() {
 
 void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
-	for (vector<Entity*>::iterator it = entities.begin(); it != entities.end();
+	// Update paddles
+	for (vector<Paddle*>::iterator it = paddles.begin(); it != paddles.end();
+			++it) {
+
+		(*it)->update(event, ticks);
+
+	}
+	// Update balls
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end();
 			++it) {
 
 		(*it)->update(event, ticks);

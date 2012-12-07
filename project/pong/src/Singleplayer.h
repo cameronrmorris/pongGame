@@ -8,7 +8,8 @@
 #ifndef SINGLEPLAYER_H_
 #define SINGLEPLAYER_H_
 #include "game.h"
-#include "Entity.h"
+#include "Ball.h"
+#include "Paddle.h"
 #include <vector>
 
 enum singleStates {
@@ -35,7 +36,8 @@ private:
 
 	int state ;
 
-	std::vector<Entity*> entities ;
+	std::vector<Ball*> balls ;
+	std::vector<Paddle*> paddles ;
 };
 
 #endif /* SINGLEPLAYER_H_ */
