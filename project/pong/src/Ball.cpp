@@ -101,3 +101,9 @@ std::string Ball::toString() {
 	return output.str();
 
 }
+
+std::vector<SDL_Rect> Ball::getBox() {
+
+
+	return getBoundingBox();
+}

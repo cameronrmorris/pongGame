@@ -27,8 +27,9 @@ public:
 
 	virtual std::string toString() ;
 	void draw( SDL_Surface* screen);
-	void update(SDL_Event* event);
+	void update(SDL_Event* event, Uint32 ticks);
 	void setRegions( int w, int h);
+	virtual std::vector<SDL_Rect> getBox();
 
 private:
 

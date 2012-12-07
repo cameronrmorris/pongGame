@@ -34,6 +34,8 @@ public:
 	float getY() const;
 	void setY(float y);
 
+	virtual std::vector<SDL_Rect> getBox();
+
 private:
 
 	float x ;

@@ -82,7 +82,7 @@ void button::draw(SDL_Surface* screen) {
 
 }
 
-void button::update(SDL_Event* event) {
+void button::update(SDL_Event* event, Uint32 ticks) {
 
 	//The mouse offsets
 	int x = 0, y = 0;
@@ -148,4 +148,9 @@ void button::update(SDL_Event* event) {
 		}
 	}
 
+}
+
+std::vector<SDL_Rect> button::getBox() {
+
+	return getBoundingBox();
 }

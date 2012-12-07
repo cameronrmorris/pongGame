@@ -29,6 +29,8 @@ public:
 	virtual void update( SDL_Event* event, Uint32 ticks );
 	virtual std::string toString() ;
 	
+	virtual std::vector<SDL_Rect> getBox();
+
 
 private:
 

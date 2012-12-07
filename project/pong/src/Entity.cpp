@@ -18,14 +18,6 @@ Entity::~Entity() {
 	SDL_FreeSurface(image);
 }
 
-void Entity::draw(SDL_Surface* screen) {
-
-	apply_surface(0, 0, image, screen, NULL);
-}
-
-void Entity::update(SDL_Event* event, Uint32 ticks) {
-}
-
 SDL_Surface* Entity::getImage()  {
 	return image;
 }
@@ -42,4 +34,12 @@ std::string Entity::toString() {
 
 	return output.str();
 
+}
+
+const std::vector<SDL_Rect>& Entity::getBoundingBox() const {
+	return boundingBox;
+}
+
+void Entity::setBoundingBox(const std::vector<SDL_Rect>& boundingBox) {
+	this->boundingBox = boundingBox;
 }

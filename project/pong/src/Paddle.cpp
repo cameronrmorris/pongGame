@@ -193,3 +193,8 @@ std::string Paddle::toString() {
 void Paddle::setY(float y) {
 	this->y = y;
 }
+
+std::vector<SDL_Rect> Paddle::getBox() {
+
+	return getBoundingBox();
+}

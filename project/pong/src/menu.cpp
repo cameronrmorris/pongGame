@@ -29,7 +29,7 @@ void menu::update(SDL_Event* event) {
 				++it) {
 
 
-			(*it)->update(event);
+			(*it)->update(event, NULL);
 
 		}
 
