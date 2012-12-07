@@ -8,6 +8,7 @@
 #include "Singleplayer.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "HumanPaddle.h"
 #include "util.h"
 #include "Timer.h"
 
@@ -37,9 +38,9 @@ bool Singleplayer::init() {
 
 	apply_surface(0, 0, getBackground(), getScreen());
 
-	entities.push_back(new Ball(0, SCREEN_HEIGHT/2, 1000.0, 0, "images/ball.png"));
-	entities.push_back(new Paddle(0,0,0,0,10,10, "images/ball.png"));
-
+	entities.push_back(new Ball(0, SCREEN_HEIGHT/2, 500.0, 0, "images/ball.png"));
+	entities.push_back(new HumanPaddle(0,0,0,0,10,10, "images/ball.png", SDLK_UP, SDLK_DOWN));
+	entities.push_back(new HumanPaddle(640,0,0,0,10,10, "images/ball.png", SDLK_w, SDLK_a));
 	setState(PLAYING);
 
 	return true;

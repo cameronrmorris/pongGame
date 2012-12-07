@@ -17,8 +17,8 @@ public:
 	Paddle(float x, float y, float velx, float vely, float accx, float accy, std::string image);
 	virtual ~Paddle();
 
-	virtual void draw( SDL_Surface *screen);
-	virtual void update( SDL_Event* event, Uint32 ticks );
+	virtual void draw( SDL_Surface *screen) = 0;
+	virtual void update( SDL_Event* event, Uint32 ticks ) = 0;
 
 	virtual std::string toString() ;
 	float getAccx() const;
