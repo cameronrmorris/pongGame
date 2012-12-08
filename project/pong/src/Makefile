@@ -17,6 +17,11 @@ windows: CPP=i586-mingw32msvc-g++
 windows: CPPFLAGS = -O0 -g3 -Wall -I SDL/include
 windows: pong.exe
 
+mingw: CPP=g++
+mingw: CPPFLAGS = -O0 -g3 -Wall -I SDL/include
+mingw: pong.exe
+
+
 install: all
 	cp pong ../../../game/
 
