@@ -61,15 +61,15 @@ bool Singleplayer::init() {
 					"images/paddle.png", SDLK_w, SDLK_a));
 	// Up - down
 	/*balls.push_back(
-			new Ball((SCREEN_WIDTH / 2) + 20, SCREEN_HEIGHT / 2, 0, 100.0,
-					"images/ball.png"));
-	paddles.push_back(
-			new HumanPaddle(SCREEN_WIDTH / 2, 0, 0, 0, 10, 10,
-					"images/paddle2.png", SDLK_UP, SDLK_DOWN));
-	paddles.push_back(
-			new HumanPaddle(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 0, 0, 10, 10,
-					"images/paddle2.png", SDLK_w, SDLK_a));
-*/
+	 new Ball((SCREEN_WIDTH / 2) + 20, SCREEN_HEIGHT / 2, 0, 100.0,
+	 "images/ball.png"));
+	 paddles.push_back(
+	 new HumanPaddle(SCREEN_WIDTH / 2, 0, 0, 0, 10, 10,
+	 "images/paddle2.png", SDLK_UP, SDLK_DOWN));
+	 paddles.push_back(
+	 new HumanPaddle(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 0, 0, 10, 10,
+	 "images/paddle2.png", SDLK_w, SDLK_a));
+	 */
 	setState(PLAYING);
 
 	return true;
@@ -185,7 +185,8 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 			if ((*it)->checkCollision(*it2)) {
 
 				handleCollision(*it2, *it);
-				LogWrite((*it)->toString(),"game.log");
+				LogWrite("New ball info:", "game.log");
+				LogWrite((*it)->toString(), "game.log");
 			}
 
 		}
@@ -247,7 +248,7 @@ void Singleplayer::handleCollision(Paddle* paddle, Ball* ball) {
 		else
 			ballVY = -(ballVY - 10);
 
-	// Ball is moving in both direction
+		// Ball is moving in both direction
 	} else {
 
 		if (ballVX > 0)
@@ -255,7 +256,22 @@ void Singleplayer::handleCollision(Paddle* paddle, Ball* ball) {
 		else
 			ballVX = -(ballVX - 10);
 
-		ballVY = ballVY + padVX*.10;
+		if (ballVY > 0) {
+
+			if (padVY > 0)
+				ballVY = ballVY + padVY * .1;
+			else
+				ballVY = ballVY + -(padVY * .1);
+
+		} else {
+
+			if (padVY > 0)
+				ballVY = ballVY - padVY * .1;
+			else
+				ballVY = ballVY + padVY * .1;
+
+		}
+
 	}
 
 	ball->setX(ballX);
