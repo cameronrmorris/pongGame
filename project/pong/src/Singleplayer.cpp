@@ -49,14 +49,27 @@ bool Singleplayer::init() {
 
 	apply_surface(0, 0, getBackground(), getScreen());
 
+	// Left - right
 	balls.push_back(
-			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 500.0, 0, "images/ball.png"));
+			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100.0, 10,
+					"images/ball.png"));
 	paddles.push_back(
-			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10, "images/paddle.png", SDLK_UP,
-					SDLK_DOWN));
+			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
+					"images/paddle.png", SDLK_UP, SDLK_DOWN));
 	paddles.push_back(
-			new HumanPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10, "images/paddle.png", SDLK_w,
-					SDLK_a));
+			new HumanPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
+					"images/paddle.png", SDLK_w, SDLK_a));
+	// Up - down
+	/*balls.push_back(
+			new Ball((SCREEN_WIDTH / 2) + 20, SCREEN_HEIGHT / 2, 0, 100.0,
+					"images/ball.png"));
+	paddles.push_back(
+			new HumanPaddle(SCREEN_WIDTH / 2, 0, 0, 0, 10, 10,
+					"images/paddle2.png", SDLK_UP, SDLK_DOWN));
+	paddles.push_back(
+			new HumanPaddle(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 0, 0, 10, 10,
+					"images/paddle2.png", SDLK_w, SDLK_a));
+*/
 	setState(PLAYING);
 
 	return true;
@@ -169,10 +182,10 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 		for (vector<Paddle*>::iterator it2 = paddles.begin();
 				it2 != paddles.end(); ++it2) {
 
-			if( (*it)->checkCollision(*it2) ) {
+			if ((*it)->checkCollision(*it2)) {
 
-				(*it)->setVelx(-(*it)->getVelx());
-
+				handleCollision(*it2, *it);
+				LogWrite((*it)->toString(),"game.log");
 			}
 
 		}
@@ -181,3 +194,73 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
 }
 
+void Singleplayer::handleCollision(Paddle* paddle, Ball* ball) {
+
+	// Paddle info
+	float padX = paddle->getX();
+	float padY = paddle->getY();
+	float padVX = paddle->getVelx();
+	float padVY = paddle->getVely();
+	int padW = paddle->getImage()->w;
+	int padH = paddle->getImage()->h;
+	// Ball info
+	float ballX = ball->getX();
+	float ballY = ball->getY();
+	float ballVX = ball->getVelx();
+	float ballVY = ball->getVely();
+	int ballW = ball->getImage()->w;
+	int ballH = ball->getImage()->h;
+
+	// Is ball left or right of paddle?
+	if (ballX > padX) {
+
+		// Move ball out of the paddle
+		if (ballX < padX + padW)
+			ballX = padW + padX;
+
+	}
+	// Ball is to the left
+	else {
+
+		// Move ball out of the paddle
+		if (ballX + ballW > padX)
+			ballX = padX - ballW;
+
+	}
+
+	// Handle new velocities
+
+	// Ball is moving left-right only
+	if (ballVY == 0) {
+
+		if (ballVX > 0)
+			ballVX = -(ballVX + 10);
+		else
+			ballVX = -(ballVX - 10);
+
+	}
+	// Ball is moving up-down only
+	else if (ballVX == 0) {
+
+		if (ballVX > 0)
+			ballVY = -(ballVY + 10);
+		else
+			ballVY = -(ballVY - 10);
+
+	// Ball is moving in both direction
+	} else {
+
+		if (ballVX > 0)
+			ballVX = -(ballVX + 10);
+		else
+			ballVX = -(ballVX - 10);
+
+		ballVY = ballVY + padVX*.10;
+	}
+
+	ball->setX(ballX);
+	ball->setY(ballY);
+	ball->setVelx(ballVX);
+	ball->setVely(ballVY);
+
+}

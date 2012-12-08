@@ -14,10 +14,9 @@
 
 Game::Game(SDL_Surface *screen) {
 
-	this->screen = screen ;
+	this->screen = screen;
 
 	setState(INIT);
-
 
 }
 
@@ -32,16 +31,17 @@ bool Game::init() {
 
 	// Load background image
 
-	background = load_image( "images/background.png") ;
+	background = load_image("images/background.png");
 
-	apply_surface( 0, 0, background, screen );
+	apply_surface(0, 0, background, screen);
 
-	gamemenu.addButton( 170, 120, 300, 40, "images/SinglePlayer.png", SINGLEPLAYER);
-	gamemenu.addButton( 170, 175, 300, 40, "images/TwoPlayer.png", MULT_LOCAL);
-	gamemenu.addButton( 170, 230, 300, 40, "images/Online.png", MULT_ONLINE);
-	gamemenu.addButton( 170, 285, 300, 40, "images/Highscore.png", MENU);
-	gamemenu.addButton( 10, 430, 100, 40, "images/Credits.png", MENU);
-	gamemenu.addButton( 530, 430, 100, 40, "images/Quit.png", QUIT);
+	gamemenu.addButton(170, 120, 300, 40, "images/SinglePlayer.png",
+			SINGLEPLAYER);
+	gamemenu.addButton(170, 175, 300, 40, "images/TwoPlayer.png", MULT_LOCAL);
+	gamemenu.addButton(170, 230, 300, 40, "images/Online.png", MULT_ONLINE);
+	gamemenu.addButton(170, 285, 300, 40, "images/Highscore.png", MENU);
+	gamemenu.addButton(10, 430, 100, 40, "images/Credits.png", MENU);
+	gamemenu.addButton(530, 430, 100, 40, "images/Quit.png", QUIT);
 
 	//If everything initialized fine
 
@@ -57,24 +57,17 @@ void Game::run() {
 
 		switch (getState()) {
 
-
 		case INIT:
 			init();
-			break ;
+			break;
 
 		case SINGLEPLAYER:
 
-			LogWrite("SINGLE START", "game.log");
 			startSinglePlayer();
-
-			LogWrite("SINGLE END","game.log");
-			LogWrite(this->toString(), "game.log");
-
 			break;
 		case MENU:
 
 			displayMenu();
-
 			break;
 
 		case QUIT:
@@ -94,16 +87,15 @@ void Game::displayMenu() {
 	LogWrite(gamemenu.toString(), "game.log");
 
 	// FPS test
-	int frame = 0 ;
-	Timer fps ;
-	Timer update ;
+	int frame = 0;
+	Timer fps;
+	Timer update;
 	Timer delta;
 
-	 update.start();
+	update.start();
 
-	 //Start the frame timer
-	 fps.start();
-
+	//Start the frame timer
+	fps.start();
 
 	//While there's an event to handle
 	while (state == MENU) {
@@ -115,7 +107,6 @@ void Game::displayMenu() {
 			//Quit the program
 			setState(QUIT);
 		}
-
 
 		switch (event.user.code) {
 
@@ -130,9 +121,8 @@ void Game::displayMenu() {
 
 		}
 
-		gamemenu.update( &event);
-		gamemenu.draw( screen) ;
-
+		gamemenu.update(&event);
+		gamemenu.draw(screen);
 
 		//Update the screen
 		if (SDL_Flip(screen) == -1) {
@@ -142,21 +132,19 @@ void Game::displayMenu() {
 		frame++;
 
 		//If a second has passed since the caption was last updated
-		if( update.get_ticks() > 1000 )
-		{
+		if (update.get_ticks() > 1000) {
 			//The frame rate as a string
 			std::stringstream caption;
 
 			//Calculate the frames per second and create the string
-			caption << "Pong - FPS: " << frame / ( fps.get_ticks() / 1000.f );
+			caption << "Pong - FPS: " << frame / (fps.get_ticks() / 1000.f);
 
 			//Reset the caption
-			SDL_WM_SetCaption( caption.str().c_str(), NULL );
+			SDL_WM_SetCaption(caption.str().c_str(), NULL);
 
 			//Restart the update timer
 			update.start();
 		}
-
 
 	}
 
@@ -168,15 +156,12 @@ void Game::startSinglePlayer() {
 
 	Singleplayer game(screen);
 
-
 	game.run();
 
 	// Game ended?
 	setState(MENU);
 
-
 }
-
 
 int Game::getState() {
 
@@ -189,8 +174,7 @@ void Game::setState(int state) {
 	this->state = state;
 }
 
-std::string stateToString( int s ) {
-
+std::string stateToString(int s) {
 
 	switch (s) {
 
@@ -217,14 +201,12 @@ std::string stateToString( int s ) {
 
 std::string Game::toString() {
 
-	std::stringstream output ;
+	std::stringstream output;
 
-	output  << "State= " << stateToString(getState())
-			<< " Background= " << this->background
-			<< " Screen= " << this->screen;
+	output << "State= " << stateToString(getState()) << " Background= "
+			<< this->background << " Screen= " << this->screen;
 
 	return output.str();
-
 
 }
 
