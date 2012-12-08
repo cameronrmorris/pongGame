@@ -21,6 +21,8 @@ Paddle::Paddle(float x, float y, float velx, float vely, float accx, float accy,
 	setAccx(accx);
 	setAccy(accy);
 
+	addBox(getX(),getY(),getImage()->h,getImage()->w);
+
 }
 
 Paddle::~Paddle() {
@@ -59,18 +61,6 @@ void Paddle::setVely(float vely) {
 	this->vely = vely;
 }
 
-float Paddle::getX() const {
-	return x;
-}
-
-void Paddle::setX(float x) {
-	this->x = x;
-}
-
-float Paddle::getY() const {
-	return y;
-}
-
 
 std::string Paddle::toString() {
 
@@ -84,10 +74,6 @@ std::string Paddle::toString() {
 
 	return output.str();
 
-}
-
-void Paddle::setY(float y) {
-	this->y = y;
 }
 
 std::vector<SDL_Rect> Paddle::getBox() {

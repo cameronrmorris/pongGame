@@ -35,8 +35,7 @@ Singleplayer::~Singleplayer() {
 	}
 
 	// Balls
-	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end();
-			++it) {
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
 		delete *it;
 
@@ -51,12 +50,12 @@ bool Singleplayer::init() {
 	apply_surface(0, 0, getBackground(), getScreen());
 
 	balls.push_back(
-			new Ball(0, SCREEN_HEIGHT / 2, 500.0, 0, "images/ball.png"));
+			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 500.0, 0, "images/ball.png"));
 	paddles.push_back(
-			new HumanPaddle(0, 0, 0, 0, 10, 10, "images/ball.png", SDLK_UP,
+			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10, "images/paddle.png", SDLK_UP,
 					SDLK_DOWN));
 	paddles.push_back(
-			new HumanPaddle(640, 0, 0, 0, 10, 10, "images/ball.png", SDLK_w,
+			new HumanPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10, "images/paddle.png", SDLK_w,
 					SDLK_a));
 	setState(PLAYING);
 
@@ -79,7 +78,7 @@ void Singleplayer::run() {
 	fps.start();
 	delta.start();
 	//While there's an event to handle
-	while (state == PLAYING) {
+	while (getState() == PLAYING) {
 
 		SDL_PollEvent(&event);
 
@@ -140,8 +139,7 @@ void Singleplayer::draw() {
 
 	}
 	// Draw balls
-	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end();
-			++it) {
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
 		(*it)->draw(getScreen());
 
@@ -159,19 +157,27 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
 	}
 	// Update balls
-	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end();
-			++it) {
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
 		(*it)->update(event, ticks);
 
 	}
 
+	// Check if balls collide with any paddle
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
+
+		for (vector<Paddle*>::iterator it2 = paddles.begin();
+				it2 != paddles.end(); ++it2) {
+
+			if( (*it)->checkCollision(*it2) ) {
+
+				(*it)->setVelx(-(*it)->getVelx());
+
+			}
+
+		}
+
+	}
+
 }
 
-int Singleplayer::getState() const {
-	return state;
-}
-
-void Singleplayer::setState(int state) {
-	this->state = state;
-}

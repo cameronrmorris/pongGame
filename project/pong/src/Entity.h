@@ -25,11 +25,17 @@ public:
 
 	virtual std::vector<SDL_Rect> getBox() = 0;
 
+	bool checkCollision(Entity* entity);
+
+	float getX() const;
+	void setX(float x);
+	float getY() const;
+	void setY(float y);
 
 protected:
 
-	const std::vector<SDL_Rect>& getBoundingBox() const;
-	void setBoundingBox(const std::vector<SDL_Rect>& boundingBox);
+	std::vector<SDL_Rect> getBoundingBox() const;
+	void addBox(int x, int y, int h, int w);
 
 
 private:
@@ -38,6 +44,10 @@ private:
 	std::vector<SDL_Rect> boundingBox ;
 
 	SDL_Surface* image;
+
+	float x ;
+	float y ;
+
 };
 
 #endif /* ENTITY_H_ */

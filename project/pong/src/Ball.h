@@ -20,10 +20,6 @@ public:
 	void setVelx(float velx);
 	float getVely() const;
 	void setVely(float vely);
-	float getX() const;
-	void setX(float x);
-	float getY() const;
-	void setY(float y);
 
 	virtual void draw( SDL_Surface *screen);
 	virtual void update( SDL_Event* event, Uint32 ticks );
@@ -34,8 +30,6 @@ public:
 
 private:
 
-	float x ;
-	float y ;
 	float velx ;
 	float vely ;
 

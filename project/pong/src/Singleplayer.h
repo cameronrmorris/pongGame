@@ -29,12 +29,7 @@ public:
 	virtual void run(); // This will initially open the menu and go from there
 	virtual void draw(); // This will redraw the window
 	virtual void update(SDL_Event* event, Uint32 ticks); // This will update eveyrthing in the game
-	int getState() const;
-	void setState(int state);
-
 private:
-
-	int state ;
 
 	std::vector<Ball*> balls ;
 	std::vector<Paddle*> paddles ;

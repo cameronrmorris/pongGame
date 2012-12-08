@@ -17,6 +17,8 @@ Ball::Ball(float x, float y, float velx, float vely, std::string image) :
 	setVelx(velx);
 	setVely(vely);
 
+	addBox(getX(),getY(),getImage()->h,getImage()->w);
+
 }
 
 Ball::~Ball() {
@@ -37,22 +39,6 @@ float Ball::getVely() const {
 
 void Ball::setVely(float vely) {
 	this->vely = vely;
-}
-
-float Ball::getX() const {
-	return x;
-}
-
-void Ball::setX(float x) {
-	this->x = x;
-}
-
-float Ball::getY() const {
-	return y;
-}
-
-void Ball::setY(float y) {
-	this->y = y;
 }
 
 void Ball::draw(SDL_Surface* screen) {

@@ -29,17 +29,10 @@ public:
 	void setVelx(float velx);
 	float getVely() const;
 	void setVely(float vexy);
-	float getX() const;
-	void setX(float x);
-	float getY() const;
-	void setY(float y);
-
 	virtual std::vector<SDL_Rect> getBox();
 
 private:
 
-	float x ;
-	float y ;
 	float velx ;
 	float vely ;
 
