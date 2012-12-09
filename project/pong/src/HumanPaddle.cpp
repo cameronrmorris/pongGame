@@ -107,6 +107,26 @@ void HumanPaddle::update(SDL_Event* event, Uint32 ticks) {
 			;
 
 	}
+	else {
+
+	  if ( getVely() != 0 ) {
+
+	    if( getVely() < 0 ) {
+
+	      if( getVely() + getAccy() > 0 )
+		setVely(0);
+	      else
+		setVely(getVely() + getAccy());
+	    }
+	    else {
+	      if( getVely() - getAccy() < 0 )
+		setVely(0);
+	      else
+		setVely(getVely() - getAccy());
+	    }
+	  }
+	
+	}
 
 	if (getVelx() > MAX_VEL)
 		setVelx(MAX_VEL);
