@@ -193,6 +193,9 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
 	}
 
+
+
+
 }
 
 void Singleplayer::handleCollision(Paddle* paddle, Ball* ball) {
