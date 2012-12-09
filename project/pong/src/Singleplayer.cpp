@@ -59,17 +59,9 @@ bool Singleplayer::init() {
 	paddles.push_back(
 			new HumanPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
 					"images/paddle.png", SDLK_w, SDLK_a));
-	// Up - down
-	/*balls.push_back(
-	 new Ball((SCREEN_WIDTH / 2) + 20, SCREEN_HEIGHT / 2, 0, 100.0,
-	 "images/ball.png"));
-	 paddles.push_back(
-	 new HumanPaddle(SCREEN_WIDTH / 2, 0, 0, 0, 10, 10,
-	 "images/paddle2.png", SDLK_UP, SDLK_DOWN));
-	 paddles.push_back(
-	 new HumanPaddle(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 0, 0, 10, 10,
-	 "images/paddle2.png", SDLK_w, SDLK_a));
-	 */
+
+
+
 	setState(PLAYING);
 
 	return true;

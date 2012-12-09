@@ -21,8 +21,6 @@ Paddle::Paddle(float x, float y, float velx, float vely, float accx, float accy,
 	setAccx(accx);
 	setAccy(accy);
 
-	addBox(getX(),getY(),getImage()->h,getImage()->w);
-
 }
 
 Paddle::~Paddle() {

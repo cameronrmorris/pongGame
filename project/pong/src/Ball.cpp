@@ -17,8 +17,6 @@ Ball::Ball(float x, float y, float velx, float vely, std::string image) :
 	setVelx(velx);
 	setVely(vely);
 
-	addBox(getX(),getY(),getImage()->h,getImage()->w);
-
 }
 
 Ball::~Ball() {

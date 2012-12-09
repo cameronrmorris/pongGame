@@ -31,11 +31,13 @@ public:
 	void setX(float x);
 	float getY() const;
 	void setY(float y);
+	void addBox(int x, int y, int h, int w);
+	void addBox();
 
 protected:
 
-	std::vector<SDL_Rect> getBoundingBox() const;
-	void addBox(int x, int y, int h, int w);
+	std::vector<SDL_Rect> getBoundingBox();
+
 
 
 private:
