@@ -74,6 +74,12 @@ std::string Paddle::toString() {
 
 }
 
+void Paddle::move(int direction) {
+
+
+
+}
+
 std::vector<SDL_Rect> Paddle::getBox() {
 
 	return getBoundingBox();

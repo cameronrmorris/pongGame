@@ -51,7 +51,7 @@ bool Singleplayer::init() {
 
 	// Left - right
 	balls.push_back(
-			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100.0, 10,
+			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
 					"images/ball.png"));
 	paddles.push_back(
 			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
@@ -59,8 +59,6 @@ bool Singleplayer::init() {
 	paddles.push_back(
 			new HumanPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
 					"images/paddle.png", SDLK_w, SDLK_a));
-
-
 
 	setState(PLAYING);
 
@@ -185,8 +183,7 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
 	}
 
-
-
+	checkScore();
 
 }
 
@@ -273,5 +270,21 @@ void Singleplayer::handleCollision(Paddle* paddle, Ball* ball) {
 	ball->setY(ballY);
 	ball->setVelx(ballVX);
 	ball->setVely(ballVY);
+
+}
+
+void Singleplayer::checkScore() {
+
+	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
+
+		if( (*it)->getX() <= 0 || (*it)->getX() >= SCREEN_WIDTH-40) {
+
+			balls.erase(it);
+			balls.push_back(new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
+					"images/ball.png"));
+
+		}
+
+	}
 
 }

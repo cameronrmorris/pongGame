@@ -97,35 +97,30 @@ void HumanPaddle::update(SDL_Event* event, Uint32 ticks) {
 
 	// Handle key presses
 
-	if (event->type == SDL_KEYDOWN) {
+	Uint8 *keystate = SDL_GetKeyState(NULL);
 
-		if (event->key.keysym.sym == getKeyup())
-			setVely(getVely() - getAccy());
-		else if (event->key.keysym.sym == getKeydown())
-			setVely(getVely() + getAccy());
-		else
-			;
-
-	}
+	if (keystate[getKeyup()])
+		setVely(getVely() - getAccy());
+	else if (keystate[getKeydown()])
+		setVely(getVely() + getAccy());
 	else {
 
-	  if ( getVely() != 0 ) {
+		if (getVely() != 0) {
 
-	    if( getVely() < 0 ) {
+			if (getVely() < 0) {
 
-	      if( getVely() + getAccy() > 0 )
-		setVely(0);
-	      else
-		setVely(getVely() + getAccy());
-	    }
-	    else {
-	      if( getVely() - getAccy() < 0 )
-		setVely(0);
-	      else
-		setVely(getVely() - getAccy());
-	    }
-	  }
-	
+				if (getVely() + getAccy() > 0)
+					setVely(0);
+				else
+					setVely(getVely() + getAccy());
+			} else {
+				if (getVely() - getAccy() < 0)
+					setVely(0);
+				else
+					setVely(getVely() - getAccy());
+			}
+		}
+
 	}
 
 	if (getVelx() > MAX_VEL)

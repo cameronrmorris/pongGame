@@ -12,6 +12,17 @@
 
 #define MAX_VEL 500
 
+enum paddleDirections {
+
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	NONE
+
+};
+
+
 class Paddle: public Entity {
 public:
 	Paddle(float x, float y, float velx, float vely, float accx, float accy, std::string image);
@@ -19,6 +30,7 @@ public:
 
 	virtual void draw( SDL_Surface *screen) = 0;
 	virtual void update( SDL_Event* event, Uint32 ticks ) = 0;
+	virtual void move(int direction);
 
 	virtual std::string toString() ;
 	float getAccx() const;
