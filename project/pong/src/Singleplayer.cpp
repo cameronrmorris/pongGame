@@ -53,19 +53,16 @@ bool Singleplayer::init() {
 	score[0] = 0;
 	score[1] = 0;
 
-	scoreMessage = new Text((SCREEN_WIDTH / 2) - 50, 0, "Score : 0 - 0",
-			"Allcaps.ttf", 14, 255, 255, 255);
+	scoreMessage = new Text((SCREEN_WIDTH / 2) - 100, 0, "Score : 0 - 0",
+			"Allcaps.ttf", 28, 255, 255, 255);
 
 	// Left - right
 	balls.push_back(
 			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
 					"images/ball.png"));
-	/*paddles.push_back(
-	 new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-	 "images/paddle.png", SDLK_UP, SDLK_DOWN));*/
 	paddles.push_back(
-			new ComputerPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-					"images/paddle.png", 0, &balls));
+			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
+					"images/paddle.png", SDLK_UP, SDLK_DOWN));
 
 	paddles.push_back(
 			new ComputerPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
@@ -309,16 +306,15 @@ void Singleplayer::checkScore() {
 			// Score message
 			scoreMessage->update(NULL, 0);
 
-			int xVel = 120 ;
-			int yVel = 10 ;
+			int xVel = 120;
+			int yVel = 10;
 
-			if( score[0] > score[1] ) {
-				xVel = -120 - 120 * (score[0] - score[1] );
-				yVel = 10 + 10 * (score[0] - score[1] ) ;
-			}
-			else {
+			if (score[0] > score[1]) {
+				xVel = -120 - 120 * (score[0] - score[1]);
+				yVel = 10 + 10 * (score[0] - score[1]);
+			} else {
 				xVel = 120 + 120 * (score[1] - score[0]);
-				yVel = 10 + 10 * (score[0] - score[1] ) ;
+				yVel = 10 + 10 * (score[0] - score[1]);
 			}
 			balls.erase(it);
 			balls.push_back(
