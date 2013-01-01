@@ -50,6 +50,11 @@ bool Singleplayer::init() {
 
 	apply_surface(0, 0, getBackground(), getScreen());
 
+	score[0] = 0 ;
+	score[1] = 0 ;
+
+	scoreMessage = new Text((SCREEN_WIDTH / 2) - 50, 0, "Score : 0 - 0", "Allcaps.ttf", 14, 255, 255, 255);
+
 	// Left - right
 	balls.push_back(
 			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
@@ -134,6 +139,10 @@ void Singleplayer::run() {
 void Singleplayer::draw() {
 
 	apply_surface(0, 0, getBackground(), getScreen());
+
+	// Draw score
+
+	scoreMessage->draw(getScreen());
 
 	// Draw paddles
 	for (vector<Paddle*>::iterator it = paddles.begin(); it != paddles.end();
@@ -283,10 +292,27 @@ void Singleplayer::checkScore() {
 
 		if ((*it)->getX() <= 0 || (*it)->getX() >= SCREEN_WIDTH - 40) {
 
+
+			if ( (*it)->getX() <= 0  )
+				score[1]++;
+			else
+				score[0]++;
+
+			std::stringstream newMsg;
+
+			newMsg << "Score: " << score[0] << "-" << score[1];
+
+			scoreMessage->setText(newMsg.str());
+
+			// Score message
+			scoreMessage->update(NULL,0);
+
+
 			balls.erase(it);
 			balls.push_back(
 					new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
 							"images/ball.png"));
+
 
 		}
 

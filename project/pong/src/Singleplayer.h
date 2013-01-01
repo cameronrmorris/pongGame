@@ -12,6 +12,7 @@
 #include "Paddle.h"
 #include "ComputerPaddle.h"
 #include <vector>
+#include "Text.h"
 
 enum singleStates {
 
@@ -36,6 +37,10 @@ private:
 
 	std::vector<Ball*> balls ;
 	std::vector<Paddle*> paddles ;
+	// 0 - Human : 1 - Computer
+	unsigned int score[2];
+	Text *scoreMessage ;
+
 };
 
 #endif /* SINGLEPLAYER_H_ */

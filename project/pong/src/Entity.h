@@ -21,9 +21,10 @@ public:
 	virtual void update( SDL_Event* event, Uint32 ticks ) = 0;
 	virtual std::string toString();
 	SDL_Surface* getImage() ;
+	void updateImage( SDL_Surface* image);
 	void setImage( SDL_Surface* image);
 
-	virtual std::vector<SDL_Rect> getBox() = 0;
+	virtual std::vector<SDL_Rect> getBox();
 
 	bool checkCollision(Entity* entity);
 

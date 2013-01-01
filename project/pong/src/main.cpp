@@ -9,6 +9,7 @@
 #include "SDL/SDL.h"
 #include "game.h"
 #include "util.h"
+#include "SDL/SDL_ttf.h"
 
 int main(int argc, char *argv[]) {
 
@@ -17,7 +18,12 @@ int main(int argc, char *argv[]) {
 
 	//Initialize all SDL subsystems
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
-		return false;
+		return -1;
+	}
+
+	//Initialize SDL_ttf
+	if (TTF_Init() == -1) {
+		return -1;
 	}
 
 	//Set up the screen
@@ -26,7 +32,7 @@ int main(int argc, char *argv[]) {
 
 	//If there was an error in setting up the screen
 	if (screen == NULL) {
-		return false;
+		return -1;
 	}
 
 	//Set the window caption
@@ -38,10 +44,11 @@ int main(int argc, char *argv[]) {
 
 	game->run();
 
+	delete game;
+
 	SDL_FreeSurface(screen);
 
 	SDL_Quit();
-
 
 	return 0;
 

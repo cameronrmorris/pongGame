@@ -13,7 +13,8 @@
 using namespace std;
 Entity::Entity(std::string image) {
 
-	this->image = load_image(image);
+	if( image != "")
+		this->image = load_image(image);
 
 	setX(0);
 	setY(0);
@@ -39,6 +40,14 @@ std::string Entity::toString() {
 	output << " Image=" << getImage();
 
 	return output.str();
+
+}
+
+void Entity::updateImage(SDL_Surface* image) {
+
+	delete this->image ;
+
+	setImage(image);
 
 }
 
@@ -127,4 +136,11 @@ tmp.w = this->getImage()->w;
 
 this->boundingBox.push_back(tmp);
 
+}
+
+
+std::vector<SDL_Rect> Entity::getBox() {
+
+
+	return getBoundingBox();
 }
