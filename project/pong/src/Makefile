@@ -5,7 +5,7 @@ SDLFLAGS = -lSDLmain -lSDL -lSDL_image
 WINDOWS = -I SDL/include -L SDL/lib -lmingw32
 OTHER = -static-libgcc -static-libstdc++
 EXECS = pong pong.exe
-OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o Paddle.o HumanPaddle.o
+OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o Paddle.o HumanPaddle.o ComputerPaddle.o
 
 all: linux
 
@@ -60,6 +60,10 @@ Paddle.o: Paddle.h Paddle.cpp
 
 HumanPaddle.o: HumanPaddle.h HumanPaddle.cpp
 	$(CPP) $(CPPFLAGS) -c -o HumanPaddle.o HumanPaddle.cpp
+
+ComputerPaddle.o: ComputerPaddle.h ComputerPaddle.cpp
+	$(CPP) $(CPPFLAGS) -c -o ComputerPaddle.o ComputerPaddle.cpp	
+
 
 
 ## Test section

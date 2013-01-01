@@ -10,6 +10,7 @@
 #include "game.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "ComputerPaddle.h"
 #include <vector>
 
 enum singleStates {
@@ -35,6 +36,7 @@ private:
 
 	std::vector<Ball*> balls ;
 	std::vector<Paddle*> paddles ;
+	std::vector<ComputerPaddle*> computers ;
 };
 
 #endif /* SINGLEPLAYER_H_ */

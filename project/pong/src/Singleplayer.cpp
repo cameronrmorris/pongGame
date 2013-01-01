@@ -9,6 +9,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "HumanPaddle.h"
+#include "ComputerPaddle.h"
 #include "util.h"
 #include "Timer.h"
 
@@ -34,6 +35,14 @@ Singleplayer::~Singleplayer() {
 
 	}
 
+	// Computers
+	for (vector<ComputerPaddle*>::iterator it = computers.begin();
+			it != computers.end(); ++it) {
+
+		delete *it;
+
+	}
+
 	// Balls
 	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
@@ -53,12 +62,15 @@ bool Singleplayer::init() {
 	balls.push_back(
 			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
 					"images/ball.png"));
-	paddles.push_back(
+	/*paddles.push_back(
 			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-					"images/paddle.png", SDLK_UP, SDLK_DOWN));
-	paddles.push_back(
-			new HumanPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-					"images/paddle.png", SDLK_w, SDLK_a));
+					"images/paddle.png", SDLK_UP, SDLK_DOWN));*/
+	computers.push_back(
+				new ComputerPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
+						"images/paddle.png", 0));
+	computers.push_back(
+			new ComputerPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
+					"images/paddle.png", 0));
 
 	setState(PLAYING);
 
@@ -141,6 +153,15 @@ void Singleplayer::draw() {
 		(*it)->draw(getScreen());
 
 	}
+
+	// Draw computers
+	for (vector<ComputerPaddle*>::iterator it = computers.begin();
+			it != computers.end(); ++it) {
+
+		(*it)->draw(getScreen());
+
+	}
+
 	// Draw balls
 	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
@@ -165,12 +186,30 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 		(*it)->update(event, ticks);
 
 	}
+	// Update computers
+	for (vector<ComputerPaddle*>::iterator it = computers.begin();
+			it != computers.end(); ++it) {
+
+		(*it)->update(event, ticks, &balls);
+
+	}
 
 	// Check if balls collide with any paddle
 	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
 		for (vector<Paddle*>::iterator it2 = paddles.begin();
 				it2 != paddles.end(); ++it2) {
+
+			if ((*it)->checkCollision(*it2)) {
+
+				handleCollision(*it2, *it);
+				LogWrite("New ball info:", "game.log");
+				LogWrite((*it)->toString(), "game.log");
+			}
+
+		}
+		for (vector<ComputerPaddle*>::iterator it2 = computers.begin();
+				it2 != computers.end(); ++it2) {
 
 			if ((*it)->checkCollision(*it2)) {
 
@@ -248,21 +287,23 @@ void Singleplayer::handleCollision(Paddle* paddle, Ball* ball) {
 		else
 			ballVX = -(ballVX - 10);
 
-		if (ballVY > 0) {
+		/*		if (ballVY > 0) {
 
-			if (padVY > 0)
-				ballVY = ballVY + padVY * .1;
-			else
-				ballVY = ballVY + -(padVY * .1);
+		 if (padVY > 0)
+		 ballVY = ballVY + padVY * .1;
+		 else
+		 ballVY = ballVY + -(padVY * .1);
 
-		} else {
+		 } else {
 
-			if (padVY > 0)
-				ballVY = ballVY - padVY * .1;
-			else
-				ballVY = ballVY + padVY * .1;
+		 if (padVY > 0)
+		 ballVY = ballVY - padVY * .1;
+		 else
+		 ballVY = ballVY + padVY * .1;
 
-		}
+		 }*/
+
+		ballVY = ballVY + padVY * .1;
 
 	}
 
@@ -277,11 +318,12 @@ void Singleplayer::checkScore() {
 
 	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
-		if( (*it)->getX() <= 0 || (*it)->getX() >= SCREEN_WIDTH-40) {
+		if ((*it)->getX() <= 0 || (*it)->getX() >= SCREEN_WIDTH - 40) {
 
 			balls.erase(it);
-			balls.push_back(new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
-					"images/ball.png"));
+			balls.push_back(
+					new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
+							"images/ball.png"));
 
 		}
 
