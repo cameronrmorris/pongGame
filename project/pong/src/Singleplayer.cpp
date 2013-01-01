@@ -12,6 +12,8 @@
 #include "ComputerPaddle.h"
 #include "util.h"
 #include "Timer.h"
+#include <ctime>
+#include <stdlib.h>
 
 Singleplayer::Singleplayer(SDL_Surface *screen) :
 		Game(screen) {
@@ -58,7 +60,7 @@ bool Singleplayer::init() {
 
 	// Left - right
 	balls.push_back(
-			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
+			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 200.0, 10,
 					"images/ball.png"));
 	paddles.push_back(
 			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
@@ -306,16 +308,16 @@ void Singleplayer::checkScore() {
 			// Score message
 			scoreMessage->update(NULL, 0);
 
-			int xVel = 120;
-			int yVel = 10;
+			int xVel, yVel ;
 
-			if (score[0] > score[1]) {
-				xVel = -120 - 120 * (score[0] - score[1]);
-				yVel = 10 + 10 * (score[0] - score[1]);
-			} else {
-				xVel = 120 + 120 * (score[1] - score[0]);
-				yVel = 10 + 10 * (score[0] - score[1]);
-			}
+			srand( time(NULL));
+			xVel = rand() % 200 + 120 ;
+			yVel = rand() % 50 + 1 ;
+
+			if( score[1] > score[0] )
+				xVel = -xVel ;
+
+
 			balls.erase(it);
 			balls.push_back(
 					new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, xVel, yVel,
