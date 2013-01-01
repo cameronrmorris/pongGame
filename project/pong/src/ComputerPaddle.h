@@ -15,7 +15,7 @@ class ComputerPaddle: public Paddle {
 public:
 
 	ComputerPaddle(float x, float y, float velx, float vely, float accx,
-				float accy, std::string image, int difficulty);
+				float accy, std::string image, int difficulty, std::vector<Ball*> *handle);
 
 	virtual void draw(SDL_Surface *screen);
 	virtual void update(SDL_Event* event, Uint32 ticks);
@@ -27,6 +27,7 @@ public:
 
 private:
 
+	std::vector<Ball*> *balls ;
 	int difficulty ;
 
 

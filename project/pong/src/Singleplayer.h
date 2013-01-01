@@ -36,7 +36,6 @@ private:
 
 	std::vector<Ball*> balls ;
 	std::vector<Paddle*> paddles ;
-	std::vector<ComputerPaddle*> computers ;
 };
 
 #endif /* SINGLEPLAYER_H_ */

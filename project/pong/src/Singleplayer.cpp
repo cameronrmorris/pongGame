@@ -35,14 +35,6 @@ Singleplayer::~Singleplayer() {
 
 	}
 
-	// Computers
-	for (vector<ComputerPaddle*>::iterator it = computers.begin();
-			it != computers.end(); ++it) {
-
-		delete *it;
-
-	}
-
 	// Balls
 	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
@@ -62,15 +54,12 @@ bool Singleplayer::init() {
 	balls.push_back(
 			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
 					"images/ball.png"));
-	/*paddles.push_back(
+	paddles.push_back(
 			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-					"images/paddle.png", SDLK_UP, SDLK_DOWN));*/
-	computers.push_back(
-				new ComputerPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-						"images/paddle.png", 0));
-	computers.push_back(
+					"images/paddle.png", SDLK_UP, SDLK_DOWN));
+	paddles.push_back(
 			new ComputerPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-					"images/paddle.png", 0));
+					"images/paddle.png", 0, &balls));
 
 	setState(PLAYING);
 
@@ -154,14 +143,6 @@ void Singleplayer::draw() {
 
 	}
 
-	// Draw computers
-	for (vector<ComputerPaddle*>::iterator it = computers.begin();
-			it != computers.end(); ++it) {
-
-		(*it)->draw(getScreen());
-
-	}
-
 	// Draw balls
 	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
@@ -186,30 +167,12 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 		(*it)->update(event, ticks);
 
 	}
-	// Update computers
-	for (vector<ComputerPaddle*>::iterator it = computers.begin();
-			it != computers.end(); ++it) {
-
-		(*it)->update(event, ticks, &balls);
-
-	}
 
 	// Check if balls collide with any paddle
 	for (vector<Ball*>::iterator it = balls.begin(); it != balls.end(); ++it) {
 
 		for (vector<Paddle*>::iterator it2 = paddles.begin();
 				it2 != paddles.end(); ++it2) {
-
-			if ((*it)->checkCollision(*it2)) {
-
-				handleCollision(*it2, *it);
-				LogWrite("New ball info:", "game.log");
-				LogWrite((*it)->toString(), "game.log");
-			}
-
-		}
-		for (vector<ComputerPaddle*>::iterator it2 = computers.begin();
-				it2 != computers.end(); ++it2) {
 
 			if ((*it)->checkCollision(*it2)) {
 
