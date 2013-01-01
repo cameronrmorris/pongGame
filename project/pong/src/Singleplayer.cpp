@@ -50,18 +50,23 @@ bool Singleplayer::init() {
 
 	apply_surface(0, 0, getBackground(), getScreen());
 
-	score[0] = 0 ;
-	score[1] = 0 ;
+	score[0] = 0;
+	score[1] = 0;
 
-	scoreMessage = new Text((SCREEN_WIDTH / 2) - 50, 0, "Score : 0 - 0", "Allcaps.ttf", 14, 255, 255, 255);
+	scoreMessage = new Text((SCREEN_WIDTH / 2) - 50, 0, "Score : 0 - 0",
+			"Allcaps.ttf", 14, 255, 255, 255);
 
 	// Left - right
 	balls.push_back(
 			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
 					"images/ball.png"));
+	/*paddles.push_back(
+	 new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
+	 "images/paddle.png", SDLK_UP, SDLK_DOWN));*/
 	paddles.push_back(
-			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
-					"images/paddle.png", SDLK_UP, SDLK_DOWN));
+			new ComputerPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
+					"images/paddle.png", 0, &balls));
+
 	paddles.push_back(
 			new ComputerPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
 					"images/paddle.png", 0, &balls));
@@ -186,8 +191,6 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 			if ((*it)->checkCollision(*it2)) {
 
 				handleCollision(*it2, *it);
-				LogWrite("New ball info:", "game.log");
-				LogWrite((*it)->toString(), "game.log");
 			}
 
 		}
@@ -292,8 +295,7 @@ void Singleplayer::checkScore() {
 
 		if ((*it)->getX() <= 0 || (*it)->getX() >= SCREEN_WIDTH - 40) {
 
-
-			if ( (*it)->getX() <= 0  )
+			if ((*it)->getX() <= 0)
 				score[1]++;
 			else
 				score[0]++;
@@ -305,14 +307,23 @@ void Singleplayer::checkScore() {
 			scoreMessage->setText(newMsg.str());
 
 			// Score message
-			scoreMessage->update(NULL,0);
+			scoreMessage->update(NULL, 0);
 
+			int xVel = 120 ;
+			int yVel = 10 ;
 
+			if( score[0] > score[1] ) {
+				xVel = -120 - 120 * (score[0] - score[1] );
+				yVel = 10 + 10 * (score[0] - score[1] ) ;
+			}
+			else {
+				xVel = 120 + 120 * (score[1] - score[0]);
+				yVel = 10 + 10 * (score[0] - score[1] ) ;
+			}
 			balls.erase(it);
 			balls.push_back(
-					new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 120.0, 10,
+					new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, xVel, yVel,
 							"images/ball.png"));
-
 
 		}
 

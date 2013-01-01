@@ -36,8 +36,6 @@ const std::string& Text::getText() const {
 
 void Text::draw(SDL_Surface* screen) {
 
-	LogWrite(toString(), "game.log");
-
 	apply_surface(getX(), getY(), getImage(), screen, NULL);
 }
 
