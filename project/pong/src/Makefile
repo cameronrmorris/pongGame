@@ -1,7 +1,7 @@
 #
 # Makefile for pong
 
-SDLFLAGS = -lSDLmain -lSDL -lSDL_image -lSDL_ttf
+SDLFLAGS = -lSDLmain -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 WINDOWS = -I SDL/include -L SDL/lib -lmingw32
 OTHER = -static-libgcc -static-libstdc++
 EXECS = pong pong.exe

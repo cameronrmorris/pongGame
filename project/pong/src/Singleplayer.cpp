@@ -56,7 +56,7 @@ bool Singleplayer::init() {
 	score[1] = 0;
 
 	scoreMessage = new Text((SCREEN_WIDTH / 2) - 100, 0, "Score : 0 - 0",
-			"Allcaps.ttf", 28, 255, 255, 255);
+			"fonts/Allcaps.ttf", 28, 255, 255, 255);
 
 	// Left - right
 	balls.push_back(
