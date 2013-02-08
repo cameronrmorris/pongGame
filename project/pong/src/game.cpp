@@ -11,6 +11,7 @@
 #include "util.h"
 #include "Ball.h"
 #include "Timer.h"
+#include "TwoPlayer.h"
 
 Game::Game(SDL_Surface *screen) {
 
@@ -65,6 +66,13 @@ void Game::run() {
 
 			startSinglePlayer();
 			break;
+
+		case MULT_LOCAL:
+
+
+			startTwoPlayer();
+			break ;
+
 		case MENU:
 
 			displayMenu();
@@ -116,6 +124,9 @@ void Game::displayMenu() {
 		case SINGLEPLAYER:
 			setState(SINGLEPLAYER);
 			break;
+		case MULT_LOCAL:
+			setState(MULT_LOCAL);
+			break ;
 		default:
 			break;
 
@@ -162,6 +173,21 @@ void Game::startSinglePlayer() {
 	setState(MENU);
 
 }
+
+void Game::startTwoPlayer() {
+
+	LogWrite("Starting twoplayer...", "game.log");
+
+	TwoPlayer game(screen);
+
+	game.run();
+
+	setState(MENU);
+
+}
+
+
+
 
 int Game::getState() {
 

@@ -42,6 +42,7 @@ public:
 	void displayMenu();
 
 	void startSinglePlayer();
+	void startTwoPlayer();
 
 	int getState();
 	void setState( int state );
