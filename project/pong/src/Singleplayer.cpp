@@ -354,7 +354,7 @@ void Singleplayer::addPaddle( Paddle *newpaddle) {
 void Singleplayer::setScore( int h, int c ) {
 
   score[0] = h ;
-  score[c] = c ; 
+  score[1] = c ;
 
 }
 
