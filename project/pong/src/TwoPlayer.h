@@ -14,6 +14,9 @@ class TwoPlayer: public Singleplayer {
 public:
 	TwoPlayer(SDL_Surface *screen);
 	virtual ~TwoPlayer();
+
+	bool init() ;
+
 };
 
 #endif /* TWOPLAYER_H_ */

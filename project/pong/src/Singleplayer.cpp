@@ -20,11 +20,6 @@ Singleplayer::Singleplayer(SDL_Surface *screen) :
 
 	setState(INIT);
 
-	if (!this->init()) {
-		LogWrite("Something bad happened in singleplayer init", "game.log");
-
-	}
-
 }
 
 Singleplayer::~Singleplayer() {
@@ -86,6 +81,21 @@ void Singleplayer::run() {
 	Timer fps;
 	Timer update;
 	Timer delta;
+
+
+	if( getState() == INIT ) {
+
+	  if( !init() ) {
+
+	    LogWrite( "failed to init game", "game.log") ;
+	    
+	    return ;
+
+	  }
+	  
+
+	}
+
 
 	update.start();
 	fps.start();
@@ -326,5 +336,30 @@ void Singleplayer::checkScore() {
 		}
 
 	}
+
+}
+
+
+void Singleplayer::addBall( Ball *newball ) {
+
+  balls.push_back(newball);
+
+}
+
+void Singleplayer::addPaddle( Paddle *newpaddle) {
+
+  paddles.push_back(newpaddle) ;
+}
+
+void Singleplayer::setScore( int h, int c ) {
+
+  score[0] = h ;
+  score[c] = c ; 
+
+}
+
+void Singleplayer::setScoreMessage( Text *msg ) {
+
+  scoreMessage = msg ; 
 
 }
