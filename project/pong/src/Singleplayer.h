@@ -13,6 +13,7 @@
 #include "ComputerPaddle.h"
 #include <vector>
 #include "Text.h"
+#include "Sound.h"
 
 enum singleStates {
 
@@ -42,6 +43,7 @@ public:
 
 	virtual void setScoreMessage( Text *msg ) ;
 
+	virtual void setCollisionSound( char *filename ) ;
 private:
 
 	std::vector<Ball*> balls ;
@@ -49,7 +51,8 @@ private:
 	// 0 - Human : 1 - Computer
 	unsigned int score[2];
 	Text *scoreMessage ;
-
+	
+	Sound *collision ;
 };
 
 #endif /* SINGLEPLAYER_H_ */

@@ -5,12 +5,12 @@ SDLFLAGS = -lSDLmain -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 WINDOWS = -I SDL/include -L SDL/lib -lmingw32
 OTHER = -static-libgcc -static-libstdc++
 EXECS = pong pong.exe
-OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o Paddle.o HumanPaddle.o ComputerPaddle.o Text.o TwoPlayer.o
+OBJS = Entity.o Ball.o button.o game.o menu.o Singleplayer.o util.o Timer.o Paddle.o HumanPaddle.o ComputerPaddle.o Text.o TwoPlayer.o Music.o Sound.o
 
 all: linux install
 
 linux: CPP=g++
-linux: CPPFLAGS = -O0 -g -Wall
+linux: CPPFLAGS = -O0 -pg -g -Wall
 linux: pong
 
 windows: CPP=i586-mingw32msvc-g++
@@ -22,7 +22,7 @@ mingw: CPPFLAGS = -O0 -g3 -Wall -I SDL/include
 mingw: pong.exe
 
 
-install: all
+install: pong
 	cp pong ../../../game/
 
 pong.exe: $(OBJS) main.cpp
@@ -70,7 +70,11 @@ ComputerPaddle.o: ComputerPaddle.h ComputerPaddle.cpp
 Text.o: Text.h Text.cpp
 	$(CPP) $(CPPFLAGS) -c -o Text.o Text.cpp	
 
+Music.o: Music.h Music.cpp
+	$(CPP) $(CPPFLAGS) -c -o Music.o Music.cpp
 
+Sound.o: Sound.h Sound.cpp
+	$(CPP) $(CPPFLAGS) -c -o Sound.o Sound.cpp
 
 ## Test section
 

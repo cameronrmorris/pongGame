@@ -13,10 +13,17 @@
 #include <string>
 #include <sstream>
 
+// Screen-Graphics info
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define BIT_DEPTH 32
 #define FRAMES_PER_SECOND 60
+
+// Audio info
+const int AUDIO_RATE = 22050 ;
+const Uint16 AUDIO_FORMAT = AUDIO_S16 ;
+const int AUDIO_CHANNELS = 2 ;
+const int AUDIO_BUFFERS = 4096 ;
 
 enum gamestate {
 

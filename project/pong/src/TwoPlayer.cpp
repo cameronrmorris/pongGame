@@ -26,7 +26,8 @@ bool TwoPlayer::init() {
   apply_surface( 0, 0, getBackground(), getScreen() );
 
   setScore( 0 , 0) ;
-
+  setCollisionSound( "sounds/pong.wav");
+  
   setScoreMessage(new Text((SCREEN_WIDTH / 2) - 100, 0, "Score : 0 - 0","fonts/Allcaps.ttf", 28, 255, 255, 255));
   // Left - right                                                                                     
   addBall( new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 200.0, 10, "images/ball.png"));

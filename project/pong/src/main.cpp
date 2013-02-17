@@ -10,6 +10,8 @@
 #include "game.h"
 #include "util.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
+
 
 int main(int argc, char *argv[]) {
 
@@ -24,6 +26,15 @@ int main(int argc, char *argv[]) {
 	//Initialize SDL_ttf
 	if (TTF_Init() == -1) {
 		return -1;
+	}
+
+	//Initialize SDL_Mixer
+
+	if ( Mix_OpenAudio( AUDIO_RATE, AUDIO_FORMAT,
+			    AUDIO_CHANNELS, AUDIO_BUFFERS ) ) { 
+
+	  return -1 ;
+
 	}
 
 	//Set up the screen
@@ -48,6 +59,7 @@ int main(int argc, char *argv[]) {
 
 	SDL_FreeSurface(screen);
 
+	Mix_CloseAudio() ;
 	SDL_Quit();
 
 	return 0;

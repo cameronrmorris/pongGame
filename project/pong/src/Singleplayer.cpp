@@ -19,7 +19,6 @@ Singleplayer::Singleplayer(SDL_Surface *screen) :
 		Game(screen) {
 
 	setState(INIT);
-
 }
 
 Singleplayer::~Singleplayer() {
@@ -50,6 +49,8 @@ bool Singleplayer::init() {
 	score[0] = 0;
 	score[1] = 0;
 
+	setCollisionSound("sounds/pong.wav");
+	
 	scoreMessage = new Text((SCREEN_WIDTH / 2) - 100, 0, "Score : 0 - 0",
 			"fonts/Allcaps.ttf", 28, 255, 255, 255);
 
@@ -81,8 +82,7 @@ void Singleplayer::run() {
 	Timer fps;
 	Timer update;
 	Timer delta;
-
-
+	
 	if( getState() == INIT ) {
 
 	  if( !init() ) {
@@ -177,6 +177,7 @@ void Singleplayer::draw() {
 
 void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
+
 	// Update paddles
 	for (vector<Paddle*>::iterator it = paddles.begin(); it != paddles.end();
 			++it) {
@@ -199,7 +200,9 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
 			if ((*it)->checkCollision(*it2)) {
 
-				handleCollision(*it2, *it);
+			  collision->playSound(0);
+			  handleCollision(*it2, *it);
+
 			}
 
 		}
@@ -327,7 +330,8 @@ void Singleplayer::checkScore() {
 			if( score[1] > score[0] )
 				xVel = -xVel ;
 
-
+			
+			delete *it;
 			balls.erase(it);
 			balls.push_back(
 					new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, xVel, yVel,
@@ -361,5 +365,11 @@ void Singleplayer::setScore( int h, int c ) {
 void Singleplayer::setScoreMessage( Text *msg ) {
 
   scoreMessage = msg ; 
+
+}
+
+void Singleplayer::setCollisionSound( char *filename) {
+
+  collision = new Sound( filename ) ;
 
 }
