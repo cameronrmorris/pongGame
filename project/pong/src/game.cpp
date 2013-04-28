@@ -69,9 +69,8 @@ void Game::run() {
 
 		case MULT_LOCAL:
 
-
 			startTwoPlayer();
-			break ;
+			break;
 
 		case MENU:
 
@@ -126,7 +125,7 @@ void Game::displayMenu() {
 			break;
 		case MULT_LOCAL:
 			setState(MULT_LOCAL);
-			break ;
+			break;
 		default:
 			break;
 
@@ -186,9 +185,6 @@ void Game::startTwoPlayer() {
 
 }
 
-
-
-
 int Game::getState() {
 
 	return this->state;
@@ -244,8 +240,8 @@ void Game::setBackground(SDL_Surface* background) {
 	this->background = background;
 }
 
-menu Game::getGamemenu() {
-	return gamemenu;
+menu* Game::getGamemenu() {
+	return &gamemenu;
 }
 
 void Game::setGamemenu(menu gamemenu) {

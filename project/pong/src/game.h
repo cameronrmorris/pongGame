@@ -46,7 +46,7 @@ public:
 	virtual bool init();  // This will setup everything before the game actually loads
 	virtual void run(); // This will initially open the menu and go from there
 
-	void displayMenu();
+	virtual void displayMenu();
 
 	void startSinglePlayer();
 	void startTwoPlayer();
@@ -59,7 +59,7 @@ public:
 	void setCurrentGame(Game* currentGame);
 	SDL_Surface* getBackground() ;
 	void setBackground(SDL_Surface* background);
-	menu getGamemenu() ;
+	menu* getGamemenu() ;
 	void setGamemenu(menu gamemenu);
 	SDL_Surface* getScreen() ;
 	void setScreen(SDL_Surface* screen);

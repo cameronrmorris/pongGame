@@ -34,7 +34,6 @@ public:
 	virtual void update(SDL_Event* event, Uint32 ticks); // This will update eveyrthing in the game
 	virtual void handleCollision(Paddle *paddle, Ball *ball); // This will update the ball if it collides with a paddle
 	virtual void checkScore();
-
 	virtual void addBall( Ball *newball ) ;
 
 	virtual void addPaddle( Paddle *newpaddle ) ;
@@ -44,6 +43,8 @@ public:
 	virtual void setScoreMessage( Text *msg ) ;
 
 	virtual void setCollisionSound( char *filename ) ;
+
+	virtual void displayMenu();
 private:
 
 	std::vector<Ball*> balls ;

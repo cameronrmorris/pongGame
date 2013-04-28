@@ -42,30 +42,41 @@ Singleplayer::~Singleplayer() {
 
 bool Singleplayer::init() {
 
+	// Setup background image
 	setBackground(load_image("images/background.png"));
-
 	apply_surface(0, 0, getBackground(), getScreen());
 
+	// Setup score
 	score[0] = 0;
 	score[1] = 0;
 
+	// Set sound for collision
 	setCollisionSound("sounds/pong.wav");
-	
+
+	// Setup escape menu
+	getGamemenu()->addButton((SCREEN_WIDTH / 2) - 50, (SCREEN_HEIGHT / 2) - 60,
+				100, 40, "images/Resume.png", PLAYING);
+	getGamemenu()->addButton((SCREEN_WIDTH / 2) - 50, (SCREEN_HEIGHT / 2) - 20,
+			100, 40, "images/Quit.png", QUIT);
+
+	// Setup text image
 	scoreMessage = new Text((SCREEN_WIDTH / 2) - 100, 0, "Score : 0 - 0",
 			"fonts/Allcaps.ttf", 28, 255, 255, 255);
 
-	// Left - right
+	// Add the ball
 	balls.push_back(
 			new Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 200.0, 10,
 					"images/ball.png"));
+	// Add human paddle
 	paddles.push_back(
 			new HumanPaddle(5, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
 					"images/paddle.png", SDLK_UP, SDLK_DOWN));
-
+	// Add computer paddle
 	paddles.push_back(
 			new ComputerPaddle(615, SCREEN_HEIGHT / 2, 0, 0, 10, 10,
 					"images/paddle.png", 0, &balls));
 
+	// Finished
 	setState(PLAYING);
 
 	return true;
@@ -82,70 +93,88 @@ void Singleplayer::run() {
 	Timer fps;
 	Timer update;
 	Timer delta;
-	
-	if( getState() == INIT ) {
+	Timer menuDelay;
+	if (getState() == INIT) {
 
-	  if( !init() ) {
+		if (!init()) {
 
-	    LogWrite( "failed to init game", "game.log") ;
-	    
-	    return ;
+			LogWrite("failed to init game", "game.log");
 
-	  }
-	  
+			return;
+
+		}
 
 	}
-
 
 	update.start();
 	fps.start();
 	delta.start();
-	//While there's an event to handle
-	while (getState() == PLAYING) {
 
-		SDL_PollEvent(&event);
+	while (getState() != QUIT) {
 
-		//If the user has Xed out the window
-		if (event.type == SDL_QUIT) {
-			//Quit the program
-			setState(QUIT);
+		if (getState() == MENU)
+			displayMenu();
+
+		//While there's an event to handle
+		while (getState() == PLAYING) {
+
+			SDL_PollEvent(&event);
+
+			//If the user has Xed out the window
+			if (event.type == SDL_QUIT) {
+				//Quit the program
+				setState(QUIT);
+			}
+
+			// Escape menu
+
+			Uint8 *keystate = SDL_GetKeyState(NULL);
+
+			if (keystate[SDLK_ESCAPE]) {
+				setState(MENU);
+				menuDelay.start();
+
+				while (menuDelay.get_ticks() < 100)
+					;
+
+				menuDelay.stop();
+			}
+			switch (event.user.code) {
+
+			case QUIT:
+				setState(QUIT);
+				break;
+			default:
+				break;
+
+			}
+
+			this->update(&event, delta.get_ticks());
+			delta.start();
+			draw();
+
+			//Update the screen
+			if (SDL_Flip(getScreen()) == -1) {
+				return;
+			}
+			SDL_Delay(0);
+			frame++;
+
+			//If a second has passed since the caption was last updated
+			if (update.get_ticks() > 1000) {
+				//The frame rate as a string
+				std::stringstream caption;
+
+				//Calculate the frames per second and create the string
+				caption << "Pong - FPS: " << frame / (fps.get_ticks() / 1000.f);
+				//Reset the caption
+				SDL_WM_SetCaption(caption.str().c_str(), NULL);
+
+				//Restart the update timer
+				update.start();
+			}
+
 		}
-
-		switch (event.user.code) {
-
-		case QUIT:
-			setState(QUIT);
-			break;
-		default:
-			break;
-
-		}
-
-		this->update(&event, delta.get_ticks());
-		delta.start();
-		draw();
-
-		//Update the screen
-		if (SDL_Flip(getScreen()) == -1) {
-			return;
-		}
-
-		frame++;
-
-		//If a second has passed since the caption was last updated
-		if (update.get_ticks() > 1000) {
-			//The frame rate as a string
-			std::stringstream caption;
-
-			//Calculate the frames per second and create the string
-			caption << "Pong - FPS: " << frame / (fps.get_ticks() / 1000.f);
-			//Reset the caption
-			SDL_WM_SetCaption(caption.str().c_str(), NULL);
-
-			//Restart the update timer
-			update.start();
-		}
-
 	}
 
 }
@@ -177,7 +206,6 @@ void Singleplayer::draw() {
 
 void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
-
 	// Update paddles
 	for (vector<Paddle*>::iterator it = paddles.begin(); it != paddles.end();
 			++it) {
@@ -200,8 +228,8 @@ void Singleplayer::update(SDL_Event *event, Uint32 ticks) {
 
 			if ((*it)->checkCollision(*it2)) {
 
-			  collision->playSound(0);
-			  handleCollision(*it2, *it);
+				collision->playSound(0);
+				handleCollision(*it2, *it);
 
 			}
 
@@ -321,16 +349,15 @@ void Singleplayer::checkScore() {
 			// Score message
 			scoreMessage->update(NULL, 0);
 
-			int xVel, yVel ;
+			int xVel, yVel;
 
-			srand( time(NULL));
-			xVel = rand() % 200 + 120 ;
-			yVel = rand() % 50 + 1 ;
+			srand(time(NULL));
+			xVel = rand() % 200 + 120;
+			yVel = rand() % 50 + 1;
 
-			if( score[1] > score[0] )
-				xVel = -xVel ;
+			if (score[1] > score[0])
+				xVel = -xVel;
 
-			
 			delete *it;
 			balls.erase(it);
 			balls.push_back(
@@ -343,33 +370,88 @@ void Singleplayer::checkScore() {
 
 }
 
+void Singleplayer::addBall(Ball *newball) {
 
-void Singleplayer::addBall( Ball *newball ) {
-
-  balls.push_back(newball);
-
-}
-
-void Singleplayer::addPaddle( Paddle *newpaddle) {
-
-  paddles.push_back(newpaddle) ;
-}
-
-void Singleplayer::setScore( int h, int c ) {
-
-  score[0] = h ;
-  score[1] = c ;
+	balls.push_back(newball);
 
 }
 
-void Singleplayer::setScoreMessage( Text *msg ) {
+void Singleplayer::addPaddle(Paddle *newpaddle) {
 
-  scoreMessage = msg ; 
+	paddles.push_back(newpaddle);
+}
+
+void Singleplayer::setScore(int h, int c) {
+
+	score[0] = h;
+	score[1] = c;
 
 }
 
-void Singleplayer::setCollisionSound( char *filename) {
+void Singleplayer::setScoreMessage(Text *msg) {
 
-  collision = new Sound( filename ) ;
+	scoreMessage = msg;
+
+}
+
+void Singleplayer::setCollisionSound(char *filename) {
+
+	collision = new Sound(filename);
+
+}
+
+void Singleplayer::displayMenu() {
+
+	SDL_Event event;
+	Timer menuDelay;
+
+	LogWrite(toString(), "game.log");
+	LogWrite(getGamemenu()->toString(), "game.log");
+
+	while (getState() == MENU) {
+
+		SDL_PollEvent(&event);
+
+		//If the user has Xed out the window
+		if (event.type == SDL_QUIT) {
+			//Quit the program
+			setState(QUIT);
+		}
+
+		Uint8 *keystate = SDL_GetKeyState(NULL);
+		if (keystate[SDLK_ESCAPE]) {
+			setState(PLAYING);
+
+			menuDelay.start();
+
+			while (menuDelay.get_ticks() < 100)
+				;
+
+			menuDelay.stop();
+		}
+		switch (event.user.code) {
+
+		case PLAYING:
+			setState(PLAYING);
+			break;
+
+		case QUIT:
+			setState(QUIT);
+			break;
+		default:
+			break;
+
+		}
+
+		getGamemenu()->update(&event);
+		getGamemenu()->draw(getScreen());
+
+		//Update the screen
+		if (SDL_Flip(getScreen()) == -1) {
+			return;
+		}
+
+	}
+	SDL_Delay(1);
 
 }
