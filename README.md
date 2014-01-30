@@ -7,4 +7,4 @@ Pong clone C++
 
   * Working menus/buttons
   * Working sound/music framework
-  * Working singleplayer/twoplayer gametypes
+  * Working local singleplayer/twoplayer gametypes
